@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="tei-bo-HZi" customClass="CollectionCell" customModule="Shopping" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="144" height="140"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PbP-mx-oHo">
+                <rect key="frame" x="0.0" y="0.0" width="144" height="140"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjv-O6-FeO">
+                        <rect key="frame" x="16" y="16" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="cRK-uk-uVA"/>
+                            <constraint firstAttribute="width" constant="25" id="sz3-Cw-UDP"/>
+                        </constraints>
+                        <state key="normal" image="CheckMarkCV"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A lot of text a lot of text a lot of text a lot of text" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8R-uA-H6T">
+                        <rect key="frame" x="16" y="53" width="112" height="72"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="112" id="KEB-qf-rm3"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="eaA-KU-gxl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="20"/>
+                        <color key="textColor" name="TextColorMain"/>
+                        <color key="highlightedColor" name="TextColorMain"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" name="CollectionCard0"/>
+                <constraints>
+                    <constraint firstItem="hjv-O6-FeO" firstAttribute="leading" secondItem="PbP-mx-oHo" secondAttribute="leading" constant="16" id="5of-Cj-Cc3"/>
+                    <constraint firstItem="z8R-uA-H6T" firstAttribute="top" secondItem="hjv-O6-FeO" secondAttribute="bottom" constant="12" id="IYw-iN-AJ9"/>
+                    <constraint firstItem="z8R-uA-H6T" firstAttribute="leading" secondItem="PbP-mx-oHo" secondAttribute="leading" constant="16" id="PNn-dG-5JY"/>
+                    <constraint firstItem="hjv-O6-FeO" firstAttribute="top" secondItem="PbP-mx-oHo" secondAttribute="top" constant="16" id="sic-DS-2qJ"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <connections>
+                <outlet property="button" destination="hjv-O6-FeO" id="un5-Ry-NBY"/>
+                <outlet property="textLabel" destination="z8R-uA-H6T" id="asP-bX-fEP"/>
+            </connections>
+            <point key="canvasLocation" x="190" y="61"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="CheckMarkCV" width="200" height="200"/>
+        <namedColor name="CollectionCard0">
+            <color red="0.10199999809265137" green="0.10999999940395355" blue="0.12200000137090683" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="TextColorMain">
+            <color red="0.94499999284744263" green="0.98799997568130493" blue="0.97299998998641968" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
