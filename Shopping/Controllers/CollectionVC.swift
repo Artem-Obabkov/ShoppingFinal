@@ -52,6 +52,7 @@ class CollectionVC: UIViewController {
     }
     
     func setupNavigationBarDesign() {
+        
         self.navigationController?.navigationBar.layer.shadowColor = UIColor.black.cgColor
         self.navigationController?.navigationBar.layer.shadowOffset = CGSize(width: 0.0, height: 3.0)
         self.navigationController?.navigationBar.layer.shadowRadius = 13.0
@@ -59,13 +60,14 @@ class CollectionVC: UIViewController {
         self.navigationController?.navigationBar.layer.masksToBounds = false
         
         // Navigation bar design
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Apple SD Gothic Neo", size: 24)!, NSAttributedString.Key.foregroundColor: UIColor(named: "TextColorMain")!]
     }
     
     
     @IBAction func addButtonAction(_ sender: UIButton) {
-        print("Hello brave new world")
+        print("Haha")
     }
     
     
@@ -111,4 +113,12 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+        performSegue(withIdentifier: "ShowTableView", sender: nil)
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        guard segue.identifier == "ShowTableView" else { return }
+//    }
 }

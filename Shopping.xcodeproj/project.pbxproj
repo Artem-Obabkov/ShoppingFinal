@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,9 @@
 		8B7FE77626189EF00014362D /* CollectionVC + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE77526189EF00014362D /* CollectionVC + Extension.swift */; };
 		8B7FE77926189F7F0014362D /* CollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B7FE77826189F7F0014362D /* CollectionCell.xib */; };
 		8B7FE7812618AF450014362D /* GradientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE7802618AF450014362D /* GradientManager.swift */; };
+		8B7FE7922618F96B0014362D /* AddMenuCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE7912618F96B0014362D /* AddMenuCollection.swift */; };
+		8B7FE796261A455E0014362D /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE795261A455D0014362D /* TableVC.swift */; };
+		8B7FE79D261A47FF0014362D /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE79C261A47FF0014362D /* TableCell.swift */; };
 		B7250EE7ACB9E8E4E63926B7 /* Pods_Shopping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73DAC8F7F2EA85240762461C /* Pods_Shopping.framework */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +43,9 @@
 		8B7FE77526189EF00014362D /* CollectionVC + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionVC + Extension.swift"; sourceTree = "<group>"; };
 		8B7FE77826189F7F0014362D /* CollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
 		8B7FE7802618AF450014362D /* GradientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientManager.swift; sourceTree = "<group>"; };
+		8B7FE7912618F96B0014362D /* AddMenuCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddMenuCollection.swift; path = Shopping/Controllers/AddMenuCollection.swift; sourceTree = SOURCE_ROOT; };
+		8B7FE795261A455D0014362D /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
+		8B7FE79C261A47FF0014362D /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +116,8 @@
 			isa = PBXGroup;
 			children = (
 				8B7FE74926189B860014362D /* Main.storyboard */,
-				8B7FE77826189F7F0014362D /* CollectionCell.xib */,
 				8B7FE74E26189B8A0014362D /* LaunchScreen.storyboard */,
+				8B7FE77826189F7F0014362D /* CollectionCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -120,6 +126,8 @@
 			isa = PBXGroup;
 			children = (
 				8B7FE76C26189D370014362D /* CollectionVC.swift */,
+				8B7FE7912618F96B0014362D /* AddMenuCollection.swift */,
+				8B7FE795261A455D0014362D /* TableVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -136,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				8B7FE76326189C990014362D /* CollectionCell.swift */,
+				8B7FE79C261A47FF0014362D /* TableCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -162,7 +171,6 @@
 				54EB8C2FF8DE6E5A75B32CFD /* Pods-Shopping.debug.xcconfig */,
 				0A8CF4A3F79FA771738D6CFB /* Pods-Shopping.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -283,9 +291,12 @@
 			files = (
 				8B7FE76426189C990014362D /* CollectionCell.swift in Sources */,
 				8B7FE7812618AF450014362D /* GradientManager.swift in Sources */,
+				8B7FE7922618F96B0014362D /* AddMenuCollection.swift in Sources */,
+				8B7FE796261A455E0014362D /* TableVC.swift in Sources */,
 				8B7FE74426189B860014362D /* AppDelegate.swift in Sources */,
 				8B7FE76926189D020014362D /* ListModel.swift in Sources */,
 				8B7FE77626189EF00014362D /* CollectionVC + Extension.swift in Sources */,
+				8B7FE79D261A47FF0014362D /* TableCell.swift in Sources */,
 				8B7FE74626189B860014362D /* SceneDelegate.swift in Sources */,
 				8B7FE76D26189D370014362D /* CollectionVC.swift in Sources */,
 				8B7FE75F26189C450014362D /* Constants.swift in Sources */,
