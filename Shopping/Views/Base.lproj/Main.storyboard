@@ -15,7 +15,7 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CollectionVC" customModule="Shopping" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mhb-4W-riZ">
@@ -43,7 +43,7 @@
                                 <state key="normal" image="AddButton"/>
                                 <connections>
                                     <action selector="addButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KTE-55-4p1"/>
-                                    <segue destination="XKd-Ym-vdZ" kind="showDetail" id="3VI-WI-QGK"/>
+                                    <segue destination="XKd-Ym-vdZ" kind="showDetail" identifier="AddViewCollection" id="3VI-WI-QGK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -73,7 +73,7 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" id="9gt-mn-oM2" customClass="TableVC" customModule="Shopping" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g4g-Ot-rjD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KvW-Xi-bMx">
@@ -105,7 +105,7 @@
                                                         <constraint firstAttribute="height" constant="23" id="HXt-2M-BK4"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                    <color key="tintColor" red="0.82352941180000006" green="0.82352941180000006" blue="0.82352941180000006" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal">
                                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <imageReference key="image" image="circle" catalog="system" symbolScale="large" renderingMode="template"/>
@@ -161,6 +161,7 @@
                                 <state key="normal" image="AddButton"/>
                                 <connections>
                                     <action selector="addButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LFi-o8-rSv"/>
+                                    <segue destination="cBl-jO-fgy" kind="showDetail" identifier="AddViewTable" id="KXx-He-EQm"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -196,16 +197,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VtQ-uS-NJF">
                                 <rect key="frame" x="57" y="363" width="300" height="170"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Куда идете..." textAlignment="natural" minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ka4-Hr-f54">
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Куда идете..." minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ka4-Hr-f54">
                                         <rect key="frame" x="32" y="66" width="236" height="32"/>
                                         <color key="backgroundColor" name="TextWhite"/>
-                                        <color key="tintColor" name="BGGradientFrom"/>
+                                        <color key="tintColor" name="BGGradientTo"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="L9q-Gd-Qw8"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="kAC-3n-b7D"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="ui4-AS-Ep7"/>
                                         </constraints>
                                         <color key="textColor" name="BGGradientFrom"/>
-                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
                                             <action selector="tfAction:" destination="XKd-Ym-vdZ" eventType="editingDidEnd" id="Wbr-3t-9Ig"/>
@@ -214,8 +215,8 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавть список" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aW-c8H">
                                         <rect key="frame" x="32" y="18" width="236" height="28"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="2Qu-Ml-8BV"/>
                                             <constraint firstAttribute="height" constant="28" id="PmY-Ps-Zfa"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Tcz-Ga-COa"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="26"/>
                                         <color key="textColor" name="TextColorMain"/>
@@ -223,12 +224,12 @@
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FLq-x3-bvb">
                                         <rect key="frame" x="162" y="120" width="106" height="32"/>
-                                        <color key="backgroundColor" name="GreenColorTo"/>
+                                        <color key="backgroundColor" name="GreenColorFrom"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="etX-AI-iBy"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
-                                        <color key="tintColor" name="GreenColorTo"/>
+                                        <color key="tintColor" name="GreenColorFrom"/>
                                         <state key="normal" title="Добавить">
                                             <color key="titleColor" name="TextWhite"/>
                                         </state>
@@ -257,15 +258,15 @@
                                     <constraint firstItem="ikp-iF-y3G" firstAttribute="top" secondItem="Ka4-Hr-f54" secondAttribute="bottom" constant="22" id="6Yx-Em-O7q"/>
                                     <constraint firstAttribute="trailing" secondItem="Ka4-Hr-f54" secondAttribute="trailing" constant="32" id="A2Y-Ka-qpr"/>
                                     <constraint firstItem="rXu-aW-c8H" firstAttribute="top" secondItem="VtQ-uS-NJF" secondAttribute="top" constant="18" id="AF1-Rm-77r"/>
-                                    <constraint firstItem="Ka4-Hr-f54" firstAttribute="leading" secondItem="VtQ-uS-NJF" secondAttribute="leading" constant="32" id="EXW-vR-Axa"/>
+                                    <constraint firstItem="Ka4-Hr-f54" firstAttribute="leading" relation="lessThanOrEqual" secondItem="VtQ-uS-NJF" secondAttribute="leading" constant="32" id="EXW-vR-Axa"/>
                                     <constraint firstItem="Ka4-Hr-f54" firstAttribute="top" secondItem="rXu-aW-c8H" secondAttribute="bottom" constant="20" id="FJ5-iT-Fqr"/>
-                                    <constraint firstItem="FLq-x3-bvb" firstAttribute="leading" secondItem="ikp-iF-y3G" secondAttribute="trailing" constant="24" id="KNk-Ct-mDp"/>
+                                    <constraint firstItem="FLq-x3-bvb" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ikp-iF-y3G" secondAttribute="trailing" constant="24" id="KNk-Ct-mDp"/>
                                     <constraint firstAttribute="bottom" secondItem="ikp-iF-y3G" secondAttribute="bottom" constant="18" id="OC8-5o-c4J"/>
                                     <constraint firstAttribute="trailing" secondItem="FLq-x3-bvb" secondAttribute="trailing" constant="32" id="RmK-dp-bgE"/>
                                     <constraint firstAttribute="trailing" secondItem="rXu-aW-c8H" secondAttribute="trailing" constant="32" id="Thq-OX-veg"/>
                                     <constraint firstItem="ikp-iF-y3G" firstAttribute="leading" secondItem="VtQ-uS-NJF" secondAttribute="leading" constant="32" id="XFf-2f-5yX"/>
                                     <constraint firstAttribute="width" constant="300" id="YND-eT-fyn"/>
-                                    <constraint firstItem="rXu-aW-c8H" firstAttribute="leading" secondItem="VtQ-uS-NJF" secondAttribute="leading" constant="32" id="gpk-Zx-096"/>
+                                    <constraint firstItem="rXu-aW-c8H" firstAttribute="leading" relation="lessThanOrEqual" secondItem="VtQ-uS-NJF" secondAttribute="leading" constant="32" id="gpk-Zx-096"/>
                                     <constraint firstAttribute="height" constant="170" id="jLm-7U-kPp"/>
                                     <constraint firstItem="FLq-x3-bvb" firstAttribute="width" secondItem="ikp-iF-y3G" secondAttribute="width" id="k75-8N-4Lk"/>
                                     <constraint firstAttribute="bottom" secondItem="FLq-x3-bvb" secondAttribute="bottom" constant="18" id="tLX-6U-e9F"/>
@@ -289,7 +290,136 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KT5-PV-OQG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="713" y="845"/>
+            <point key="canvasLocation" x="713" y="864"/>
+        </scene>
+        <!--Add Menu Table-->
+        <scene sceneID="OUa-lW-8de">
+            <objects>
+                <viewController modalTransitionStyle="crossDissolve" modalPresentationStyle="overCurrentContext" id="cBl-jO-fgy" customClass="AddMenuTable" customModule="Shopping" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PoE-20-dDr">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRP-r6-kWA">
+                                <rect key="frame" x="57" y="348" width="300" height="200"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название продукта..." minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ekd-WT-Sgo">
+                                        <rect key="frame" x="32" y="58" width="236" height="32"/>
+                                        <color key="backgroundColor" name="TextWhite"/>
+                                        <color key="tintColor" name="BGGradientTo"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="2Xv-Hk-D1M"/>
+                                            <constraint firstAttribute="height" constant="32" id="nND-Xu-KR4"/>
+                                        </constraints>
+                                        <color key="textColor" name="BGGradientFrom"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldNameAction:" destination="cBl-jO-fgy" eventType="editingDidEnd" id="f7z-os-dKX"/>
+                                            <action selector="tfAction:" destination="XKd-Ym-vdZ" eventType="editingDidEnd" id="fxp-7j-XV5"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавть список" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="0fl-62-UaH">
+                                        <rect key="frame" x="32" y="16" width="236" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="aU8-uk-rQB"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="sWh-Wk-aRE"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="26"/>
+                                        <color key="textColor" name="TextColorMain"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Количество..." minimumFontSize="16" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ZJH-v9-H6a">
+                                        <rect key="frame" x="32" y="102" width="236" height="32"/>
+                                        <color key="backgroundColor" name="TextWhite"/>
+                                        <color key="tintColor" name="BGGradientTo"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Vbc-hM-bfW"/>
+                                            <constraint firstAttribute="height" constant="32" id="mOy-P7-S7E"/>
+                                        </constraints>
+                                        <color key="textColor" name="BGGradientFrom"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="textFieldAmountAction:" destination="cBl-jO-fgy" eventType="editingDidEnd" id="1hE-RH-kq8"/>
+                                            <action selector="tfAction:" destination="XKd-Ym-vdZ" eventType="editingDidEnd" id="4W9-yg-K9Z"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aY-qx-Wxl">
+                                        <rect key="frame" x="162" y="150" width="106" height="32"/>
+                                        <color key="backgroundColor" name="GreenColorFrom"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="L1c-Ei-2Dh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
+                                        <color key="tintColor" name="GreenColorFrom"/>
+                                        <state key="normal" title="Добавить">
+                                            <color key="titleColor" name="TextWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="addButtonAction:" destination="XKd-Ym-vdZ" eventType="touchUpInside" id="2h5-Tr-aB8"/>
+                                            <action selector="addButtonAction:" destination="cBl-jO-fgy" eventType="touchUpInside" id="eg1-YW-wQJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aLJ-HP-7Iy">
+                                        <rect key="frame" x="32" y="150" width="106" height="32"/>
+                                        <color key="backgroundColor" name="GreenColorFrom"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="ykX-8B-UeS"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
+                                        <color key="tintColor" name="GreenColorFrom"/>
+                                        <state key="normal" title="Готово">
+                                            <color key="titleColor" name="TextWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelAction:" destination="XKd-Ym-vdZ" eventType="touchUpInside" id="CsP-ol-40p"/>
+                                            <action selector="doneButtonAction:" destination="cBl-jO-fgy" eventType="touchUpInside" id="1vK-zH-IBW"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="CardBGGradientTo"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="0KS-dW-JWS"/>
+                                    <constraint firstItem="0fl-62-UaH" firstAttribute="top" secondItem="ZRP-r6-kWA" secondAttribute="top" constant="16" id="0mI-ez-2A0"/>
+                                    <constraint firstItem="4aY-qx-Wxl" firstAttribute="leading" relation="lessThanOrEqual" secondItem="aLJ-HP-7Iy" secondAttribute="trailing" constant="24" id="42l-5P-5LW"/>
+                                    <constraint firstItem="ekd-WT-Sgo" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="BSn-1I-ubq"/>
+                                    <constraint firstAttribute="bottom" secondItem="aLJ-HP-7Iy" secondAttribute="bottom" constant="18" id="HPD-Bb-fmz"/>
+                                    <constraint firstAttribute="trailing" secondItem="0fl-62-UaH" secondAttribute="trailing" constant="32" id="Lg3-8T-3jG"/>
+                                    <constraint firstItem="ZJH-v9-H6a" firstAttribute="top" secondItem="ekd-WT-Sgo" secondAttribute="bottom" constant="12" id="VPX-7u-O9p"/>
+                                    <constraint firstAttribute="bottom" secondItem="4aY-qx-Wxl" secondAttribute="bottom" constant="18" id="c3k-wz-bPy"/>
+                                    <constraint firstItem="0fl-62-UaH" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="dd9-Af-QMM"/>
+                                    <constraint firstAttribute="trailing" secondItem="4aY-qx-Wxl" secondAttribute="trailing" constant="32" id="fOC-L6-SLG"/>
+                                    <constraint firstItem="ZJH-v9-H6a" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="h51-g9-fSz"/>
+                                    <constraint firstAttribute="trailing" secondItem="ekd-WT-Sgo" secondAttribute="trailing" constant="32" id="iPl-aa-2LY"/>
+                                    <constraint firstItem="4aY-qx-Wxl" firstAttribute="width" secondItem="aLJ-HP-7Iy" secondAttribute="width" id="kIL-3a-bca"/>
+                                    <constraint firstItem="4aY-qx-Wxl" firstAttribute="top" secondItem="ZJH-v9-H6a" secondAttribute="bottom" constant="16" id="lyY-0C-7Gu"/>
+                                    <constraint firstItem="aLJ-HP-7Iy" firstAttribute="leading" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="nNR-gl-Evn"/>
+                                    <constraint firstItem="ekd-WT-Sgo" firstAttribute="top" secondItem="0fl-62-UaH" secondAttribute="bottom" constant="14" id="nij-A0-oZq"/>
+                                    <constraint firstItem="aLJ-HP-7Iy" firstAttribute="top" secondItem="ZJH-v9-H6a" secondAttribute="bottom" constant="16" id="pPi-CL-CJd"/>
+                                    <constraint firstAttribute="height" constant="200" id="ufq-Wd-6F6"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZJH-v9-H6a" secondAttribute="trailing" constant="32" id="w3R-uE-w68"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vmW-Pm-Z3W"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="ZRP-r6-kWA" firstAttribute="centerY" secondItem="PoE-20-dDr" secondAttribute="centerY" id="l1P-Tc-VPS"/>
+                            <constraint firstItem="ZRP-r6-kWA" firstAttribute="centerX" secondItem="PoE-20-dDr" secondAttribute="centerX" id="tci-Vf-ZP6"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="addButton" destination="4aY-qx-Wxl" id="ih4-KF-MOa"/>
+                        <outlet property="addView" destination="ZRP-r6-kWA" id="yH6-N8-bEh"/>
+                        <outlet property="doneButton" destination="aLJ-HP-7Iy" id="OKi-Kh-C9Z"/>
+                        <outlet property="textFieldAmount" destination="ZJH-v9-H6a" id="nCe-fk-vpg"/>
+                        <outlet property="textFieldName" destination="ekd-WT-Sgo" id="LvM-rX-Oml"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EBg-Cl-b2O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1499" y="864"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="hdy-sC-lQD">
@@ -333,8 +463,8 @@
         <namedColor name="CardBGGradientTo">
             <color red="0.17700000107288361" green="0.19200000166893005" blue="0.22400000691413879" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="GreenColorTo">
-            <color red="0.58399999141693115" green="0.94099998474121094" blue="0.65100002288818359" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="GreenColorFrom">
+            <color red="0.11400000005960464" green="0.70999997854232788" blue="0.51800000667572021" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="NavigationBarColor">
             <color red="0.13699999451637268" green="0.14900000393390656" blue="0.16899999976158142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

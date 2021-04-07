@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B22DF76261DE444003604D9 /* AddMenuTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22DF75261DE444003604D9 /* AddMenuTable.swift */; };
 		8B7FE74426189B860014362D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE74326189B860014362D /* AppDelegate.swift */; };
 		8B7FE74626189B860014362D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE74526189B860014362D /* SceneDelegate.swift */; };
 		8B7FE74B26189B860014362D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B7FE74926189B860014362D /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 		0A8CF4A3F79FA771738D6CFB /* Pods-Shopping.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopping.release.xcconfig"; path = "Target Support Files/Pods-Shopping/Pods-Shopping.release.xcconfig"; sourceTree = "<group>"; };
 		54EB8C2FF8DE6E5A75B32CFD /* Pods-Shopping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shopping.debug.xcconfig"; path = "Target Support Files/Pods-Shopping/Pods-Shopping.debug.xcconfig"; sourceTree = "<group>"; };
 		73DAC8F7F2EA85240762461C /* Pods_Shopping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Shopping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B22DF75261DE444003604D9 /* AddMenuTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddMenuTable.swift; sourceTree = "<group>"; };
 		8B7FE74026189B860014362D /* Shopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7FE74326189B860014362D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8B7FE74526189B860014362D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -126,8 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				8B7FE76C26189D370014362D /* CollectionVC.swift */,
-				8B7FE7912618F96B0014362D /* AddMenuCollection.swift */,
 				8B7FE795261A455D0014362D /* TableVC.swift */,
+				8B7FE7912618F96B0014362D /* AddMenuCollection.swift */,
+				8B22DF75261DE444003604D9 /* AddMenuTable.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B7FE76426189C990014362D /* CollectionCell.swift in Sources */,
+				8B22DF76261DE444003604D9 /* AddMenuTable.swift in Sources */,
 				8B7FE7812618AF450014362D /* GradientManager.swift in Sources */,
 				8B7FE7922618F96B0014362D /* AddMenuCollection.swift in Sources */,
 				8B7FE796261A455E0014362D /* TableVC.swift in Sources */,

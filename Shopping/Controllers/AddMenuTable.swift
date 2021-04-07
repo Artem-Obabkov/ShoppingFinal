@@ -1,18 +1,19 @@
 //
-//  AddMenuCollection.swift
+//  AddMenuTable.swift
 //  Shopping
 //
-//  Created by pro2017 on 03/04/2021.
+//  Created by pro2017 on 07/04/2021.
 //
 
 import UIKit
 
-class AddMenuCollection: UIViewController {
+class AddMenuTable: UIViewController {
 
     @IBOutlet weak var addView: UIView!
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textFieldName: UITextField!
+    @IBOutlet weak var textFieldAmount: UITextField!
     @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var doneButton: UIButton!
     
     let viewRadius: CGFloat = 25.0
     let buttonRadius: CGFloat = 13.0
@@ -20,38 +21,37 @@ class AddMenuCollection: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDesign()
+        setupDesight()
     }
     
-    @IBAction func tfAction(_ sender: UITextField) {
+    
+    @IBAction func textFieldNameAction(_ sender: UITextField) {
+    }
+    
+    @IBAction func textFieldAmountAction(_ sender: UITextField) {
     }
     
     @IBAction func addButtonAction(_ sender: UIButton) {
     }
     
-    @IBAction func cancelAction(_ sender: UIButton) {
+    @IBAction func doneButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
-    fileprivate func setupDesign() {
+    
+    fileprivate func setupDesight() {
         
-        textField.layer.cornerRadius = tfRadius
-        textField.clipsToBounds = true
-        textField.attributedPlaceholder = NSAttributedString(string: "Куда идете...", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "TextFieldPlaceholderColor")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .light)])
-        
-        viewGradient(withRadius: viewRadius)
-        
-        let firstCancel = UIColor(named: "RedColorTo")!.cgColor
-        let secondCancel = UIColor(named: "RedColorFrom")!.cgColor
-        buttonGradient(button: cancelButton, withColors: [firstCancel, secondCancel], radius: buttonRadius)
+        addBackgroundGradient(withRadius: viewRadius)
+        setupTextFields()
         
         let firstAdd = UIColor(named: "GreenColorTo")!.cgColor
         let secondAdd = UIColor(named: "GreenColorFrom")!.cgColor
-        buttonGradient(button: addButton, withColors: [firstAdd, secondAdd], radius: buttonRadius)
+        addButton(button: doneButton, withColors: [firstAdd, secondAdd], radius: buttonRadius)
+        addButton(button: addButton, withColors: [firstAdd, secondAdd], radius: buttonRadius)
         
     }
     
-    fileprivate func viewGradient(withRadius radius: CGFloat) {
+    fileprivate func addBackgroundGradient(withRadius radius: CGFloat) {
         
         let gradientLayer = CAGradientLayer()
         
@@ -69,9 +69,11 @@ class AddMenuCollection: UIViewController {
         
         addView.layer.cornerRadius = radius
         addView.layer.insertSublayer(gradientLayer, at: 0)
+        
     }
     
-    fileprivate func buttonGradient(button: UIButton, withColors colors: [CGColor], radius: CGFloat) {
+    fileprivate func addButton(button: UIButton, withColors colors: [CGColor], radius: CGFloat) {
+        
         
         let gradientLayer = CAGradientLayer()
         
@@ -91,6 +93,19 @@ class AddMenuCollection: UIViewController {
         button.layer.insertSublayer(gradientLayer, at: 0)
         
     }
-    
 
+    fileprivate func setupTextFields() {
+        
+        // First
+        textFieldName.layer.cornerRadius = tfRadius
+        textFieldName.clipsToBounds = true
+        textFieldName.attributedPlaceholder = NSAttributedString(string: "Название продукта...", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "TextFieldPlaceholderColor")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .light)])
+        
+        //Second
+        textFieldAmount.layer.cornerRadius = tfRadius
+        textFieldAmount.clipsToBounds = true
+        textFieldAmount.attributedPlaceholder = NSAttributedString(string: "Количество...", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "TextFieldPlaceholderColor")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .light)])
+    }
+    
+    
 }
