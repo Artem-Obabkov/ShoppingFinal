@@ -7,6 +7,15 @@
 
 import UIKit
 
-struct ListModel {
-    var text: String
+struct List {
+    
+    var name: String
+    var isFavourite: Bool = false
+    var products: [Product] = [Product]()
+    
+    init(name: String, isFavourite: Bool){
+        self.name = name
+        self.isFavourite = isFavourite
+    }
+    
 }
