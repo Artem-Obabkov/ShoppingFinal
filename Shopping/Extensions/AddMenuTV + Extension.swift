@@ -80,8 +80,12 @@ extension AddMenuTable {
     func createAlert(with mainTitle: String, message: String?, style: UIAlertController.Style) {
         
         let alertVC = UIAlertController(title: mainTitle, message: message, preferredStyle: style)
+        alertVC.overrideUserInterfaceStyle = .dark
+        
         
         let doneButton = UIAlertAction(title: "Понятно", style: .default, handler: nil)
+        
+        doneButton.titleTextColor = UIColor(named: "TextColorMain")
         
         alertVC.addAction(doneButton)
         

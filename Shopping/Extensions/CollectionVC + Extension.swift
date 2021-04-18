@@ -195,21 +195,46 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         
         let alertVC = UIAlertController(title: mainTitle, message: message, preferredStyle: style)
         alertVC.overrideUserInterfaceStyle = .dark
-        // AlertControllerStyle
         
-        //CollectionCard0
         
-        // ----------------------
+        guard let cell = self.collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
         
-        let doneButton = UIAlertAction(title: "Понятно", style: .default) { [weak self] _ in
-            
-            guard let cell = self?.collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
+        // ALERT ACTIONS
+        
+        let cancelButton = UIAlertAction(title: "Отмена", style: .default) { [weak self] _ in
             
             self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.15, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
             cell.contentView.removeAllShadows()
         }
         
-        alertVC.addAction(doneButton)
+        let deleteButton = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] action in
+
+            self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.10, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
+            cell.contentView.removeAllShadows()
+            
+            self?.collectionView.performBatchUpdates {
+                self?.collectionView.deleteItems(at: [indexPath])
+                self?.mainList.remove(at: indexPath.row)
+            }
+            
+            self?.collectionView.reloadData()
+            
+        }
+        
+        let editButton = UIAlertAction(title: "Редактировать", style: .default) { [weak self] action in
+            print("Происходит редактирование элемента")
+        }
+        
+        //TextColorMain
+        
+        editButton.titleTextColor = UIColor(named: "TextColorMain")
+        cancelButton.titleTextColor = UIColor(named: "TextColorMain")
+        deleteButton.titleTextColor = UIColor(named: "RedColorFrom")
+        
+        
+        alertVC.addAction(editButton)
+        alertVC.addAction(cancelButton)
+        alertVC.addAction(deleteButton)
         
         present(alertVC, animated: true, completion: nil)
         

@@ -76,7 +76,11 @@ extension AddMenuCollection {
         
         let doneButton = UIAlertAction(title: "Понятно", style: .default, handler: nil)
         
+        doneButton.titleTextColor = UIColor(named: "TextColorMain")
+        
         alertVC.addAction(doneButton)
+        
+        
         
         present(alertVC, animated: true, completion: nil)
         

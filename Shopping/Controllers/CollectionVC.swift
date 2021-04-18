@@ -125,9 +125,8 @@ extension CollectionVC: UIGestureRecognizerDelegate {
 
             //guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
             
-            
 
-            createAlert(with: "Ячейка", message: "\(indexPath.row)", style: .actionSheet, indexPath: indexPath)
+            createAlert(with: "Дополнительная информация", message: nil, style: .actionSheet, indexPath: indexPath)
 
             print("Long press at item: \(indexPath.row)")
 
