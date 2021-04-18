@@ -24,6 +24,9 @@
                             <constraint firstAttribute="width" constant="25" id="sz3-Cw-UDP"/>
                         </constraints>
                         <state key="normal" image="CheckMarkCV"/>
+                        <connections>
+                            <action selector="buttonAction:" destination="tei-bo-HZi" eventType="touchUpInside" id="6Rk-Bv-C8U"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A lot of text a lot of text a lot of text a lot of text" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8R-uA-H6T">
                         <rect key="frame" x="16" y="53" width="112" height="72"/>

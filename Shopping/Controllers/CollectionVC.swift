@@ -17,6 +17,9 @@ class CollectionVC: UIViewController {
     let interItemSpacing: CGFloat = 22.0
     let edgeSpacing: CGFloat = 32.0
     var widthPerItem: CGFloat = 0.0
+    // Логика ячеки
+    var shouldUnhilight: Bool = true
+    
     
     // Основной массив
     var mainList = [List]()
@@ -30,6 +33,12 @@ class CollectionVC: UIViewController {
         
         addBackgroundGradient()
         setupNavigationBarDesign()
+        setupGesturesOnCollection()
+        
+        // Переход на другое View
+        setupTapGestureOnCollectionCell()
+        
+        collectionView.reloadData()
     }
     
     @IBAction func addButtonAction(_ sender: UIButton) {
@@ -42,7 +51,7 @@ class CollectionVC: UIViewController {
         
         if addMenu.textField.text != "" && addMenu.textField.text != nil {
             let list = List(name: addMenu.textField.text!, isFavourite: false)
-            mainList.append(list)
+            mainList.insert(list, at: 0)
             collectionView.reloadData()
         }        
     }
@@ -61,23 +70,10 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionCell
-
+        
+        //cell.backgroundColor = UIColor.green
         // Обрезаем углы
-        cell.contentView.layer.cornerRadius = 20
-
-        // Создаем тень
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.43
-        cell.layer.shadowOffset = CGSize(width: -3.0, height: 3.0)
-        cell.layer.shadowRadius = 13
-
-        // Без этой строчки ничего не отобразится
-        cell.layer.masksToBounds = false
-
-        // Следующие шаги позволяют быстрее редактировать тени
-        cell.layer.shadowPath = UIBezierPath(rect: cell.bounds).cgPath
-        cell.layer.shouldRasterize  = true
-        cell.layer.rasterizationScale = UIScreen.main.scale
+        addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
         
         cell.prepareForReuse()
 
@@ -87,13 +83,88 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+// GESTURES LOGIC
+    
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            
+            self.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard1", animationTime: 0.2, animationType: .curveEaseInOut, isPressed: true, indexPath: indexPath)
+        }
+    }
+    
+    internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) {
+            
+            if shouldUnhilight {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(400)) {
+                    self.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.1, animationType: .curveEaseOut, isPressed: false, indexPath: indexPath)
+                }
+            }
+        }
+    }
+
+}
+
+
+extension CollectionVC: UIGestureRecognizerDelegate {
+    
+    @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
+        
+        // Если жест был отменен, то ячейка возвращается в свое нормальное положение
+        if gestureRecognizer.state == .cancelled {
+            self.shouldUnhilight = true
+        }
+        
+        
+        guard gestureRecognizer.state == .began else { return }
+        self.shouldUnhilight = false
+        
+        let pozition = gestureRecognizer.location(in: collectionView)
+
+        if let indexPath = collectionView?.indexPathForItem(at: pozition) {
+
+            //guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
+            
+            
+
+            createAlert(with: "Ячейка", message: "\(indexPath.row)", style: .actionSheet, indexPath: indexPath)
+
+            print("Long press at item: \(indexPath.row)")
+
+
+        }
+
+        if gestureRecognizer.state == .ended, let indexPath = collectionView?.indexPathForItem(at: pozition) {
+
+            
+            
+            print("Закончил выаолнение на ячейке \(indexPath.row)")
+
+        }
+    }
+    
+    
     // NAVIGATION
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    @objc func handleTapWith(gestureRecognizer: UITapGestureRecognizer) {
         
-        listItem = mainList[indexPath.row]
+        let pozition = gestureRecognizer.location(in: collectionView)
         
-        performSegue(withIdentifier: "ShowTableView", sender: nil)
+        if let indexPath = collectionView?.indexPathForItem(at: pozition) {
+            
+            let cell = collectionView.cellForItem(at: indexPath)!
+            
+            
+            
+            self.listItem = mainList[indexPath.row]
+            performSegue(withIdentifier: "ShowTableView", sender: nil)
+            
+            // Позволяет применить дизайн к карточке с задержкой, после перехода на Table VC
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                self.addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
+            }
+            
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -101,6 +172,5 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
         guard segue.identifier == "ShowTableView", let tableVC = segue.destination as? TableVC else { return }
         
         tableVC.list = listItem
-        
     }
 }

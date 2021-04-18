@@ -18,13 +18,13 @@ class AddMenuCollection: UIViewController {
     let buttonRadius: CGFloat = 13.0
     let tfRadius: CGFloat = 12.0
     
-    var addItem: ((List) -> Void)?
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupDesign()
+        
+        self.textField.delegate = self
+        self.textField.becomeFirstResponder()
     }
     
     @IBAction func tfAction(_ sender: UITextField) {
@@ -33,18 +33,45 @@ class AddMenuCollection: UIViewController {
     
     @IBAction func addButtonAction(_ sender: UIButton) {
         
-        if textField.text != nil && textField.text != "" {
-            performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
-            dismiss(animated: true, completion: nil)
-            
-        } else {
-            createAlert(with: "Упс...", message: "Кажется вы ничего не ввели", style: .alert)
-        }
+        performDataPassing()
         
     }
     
     
     @IBAction func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    private func performDataPassing() {
+        
+        if self.textField.text != nil && self.textField.text != "" {
+            
+            performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
+            dismiss(animated: true, completion: nil)
+            
+        } else {
+            
+            createAlert(with: "Упс...", message: "Кажется вы ничего не ввели", style: .alert)
+        }
+    }
+}
+
+
+// TEXTFIELD DELEGATE | WORK WITH KEYBOARD
+
+extension AddMenuCollection: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField == self.textField {
+            performDataPassing()
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

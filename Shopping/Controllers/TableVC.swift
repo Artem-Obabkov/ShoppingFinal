@@ -7,11 +7,17 @@
 
 import UIKit
 
+protocol TableVCDelegate {
+    func changeCardDesignInCollection(_: Bool)
+}
+
 class TableVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     var list: List!
+    
+    //var delegate: TableVCDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,10 +31,12 @@ class TableVC: UIViewController {
     
     @objc func leftButtonAction(){
         self.navigationController!.popViewController(animated: true)
-        //dismiss(animated: true, completion: nil)
+        //delegate?.changeCardDesignInCollection(true)
     }
     
-    @objc func rightButtonAction() {
+    @objc func rightButtonAction() { 
+        self.list.products.removeAll()
+        self.tableView.reloadData()
     }
     
     @IBAction func getDataFromAddMenuSecond(segue: UIStoryboardSegue) {
@@ -75,10 +83,11 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
 }
 
 // GET DATA
+
 extension TableVC: AddMenuTVDelegate {
     
     func passData(item: Product) {
-        list.products.append(item)
+        list.products.insert(item, at: 0)
         self.tableView.reloadData()
     }
     

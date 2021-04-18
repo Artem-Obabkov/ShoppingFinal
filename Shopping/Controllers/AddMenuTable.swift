@@ -28,19 +28,28 @@ class AddMenuTable: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDesight()
+        
+        self.textFieldName.delegate = self
+        self.textFieldAmount.delegate = self
     }
     
-    
     @IBAction func textFieldNameAction(_ sender: UITextField) {
-        
+        guard let text: String = textFieldName.text else { return }
+        textFieldName.text = String(text.prefix(25))
     }
     
 
     @IBAction func textFieldAmountAction(_ sender: UITextField) {
+        guard let text: String = textFieldAmount.text else { return }
+        
         // Ограничиваем количество символов для ввода
-        if let text: String = textFieldAmount.text {
+        if text.contains(".") {
+            textFieldAmount.text = String(text.prefix(3))
+        } else {
             textFieldAmount.text = String(text.prefix(2))
         }
+        
+        
     }
     
     @IBAction func addButtonAction(_ sender: UIButton) {
@@ -57,10 +66,16 @@ class AddMenuTable: UIViewController {
             
             let product = Product(name: textFieldName.text!, amount: "x\(amount)")
             
+            // Передаем данные на TableVC в реальном времени
             delegate?.passData(item: product)
             
             textFieldName.text = ""
             textFieldAmount.text = ""
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(15)) {
+                self.textFieldName.becomeFirstResponder()
+            }
+            
             
         } else {
             createAlert(with: "Упс...", message: "Кажется вы ничего не ввели", style: .alert)
@@ -74,3 +89,22 @@ class AddMenuTable: UIViewController {
 
 }
 
+// TEXTFIELD DELEGATE | WORK WITH KEYBOARD
+
+extension AddMenuTable: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        if textField == self.textFieldName {
+            //print("Hello")
+            self.textFieldAmount.becomeFirstResponder()
+        }
+        
+        return true
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}

@@ -7,9 +7,10 @@
 
 import UIKit
 
-// Работа с ячейкой
+
 extension CollectionVC: UICollectionViewDelegateFlowLayout {
     
+    // WORK WITH CELL
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -51,7 +52,31 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         return 22
     }
     
-    // Design
+    
+    // TAP GESTURES
+    
+    func setupGesturesOnCollection() {
+
+        let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
+
+        longPressedGesture.minimumPressDuration = 0.3
+        longPressedGesture.delegate = self
+        
+        //longPressedGesture.delaysTouchesEnded = true
+
+        collectionView?.addGestureRecognizer(longPressedGesture)
+    }
+    
+    func setupTapGestureOnCollectionCell() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapWith(gestureRecognizer:)))
+        
+        tapGesture.delegate = self
+        tapGesture.numberOfTouchesRequired = 1
+        
+        collectionView?.addGestureRecognizer(tapGesture)
+    }
+    
+    // DESIGN
     
     func addBackgroundGradient() {
         
@@ -85,6 +110,109 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         
         self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Apple SD Gothic Neo", size: 24)!, NSAttributedString.Key.foregroundColor: UIColor(named: "TextColorMain")!]
+    }
+    
+    // CELL DESIGN
+    
+    func addCellDesignWithAnimation(cell: UICollectionViewCell, withColorName colorName: String, animationTime: TimeInterval, animationType: UIView.AnimationOptions, isPressed: Bool, indexPath: IndexPath) {
+
+        UIView.animate(withDuration: animationTime, delay: 0.0, options: animationType) { 
+            self.addCellDesign(cell: cell, withColorName: colorName, isPressed: isPressed, indexPath: indexPath)
+        }
+    }
+    
+    func addCellDesign(cell: UICollectionViewCell, withColorName colorName: String, isPressed: Bool, indexPath: IndexPath) {
+        
+        guard let cell = cell as? CollectionCell else { return }
+        
+        var isEven: Bool = false
+        let borderWidth: CGFloat = 1
+        
+        if indexPath.row % 2 == 0 {
+            isEven = true
+        }
+        
+        if isPressed {
+            
+            // Очищаем тени
+            cell.layer.shadowColor = UIColor.clear.cgColor
+            cell.layer.shadowOpacity = 0
+            cell.layer.shadowOffset = CGSize(width: 0, height: 0)
+            cell.layer.shadowRadius = 0
+            
+            // Присваиваем новый дизайн рамки
+            if isEven {
+                setBordersFor(cell: cell, borderWidth: borderWidth, colorName: "NavigationBarColor")
+            } else {
+                setBordersFor(cell: cell, borderWidth: borderWidth, colorName: "Border3")
+            }
+            
+            cell.contentView.backgroundColor = UIColor(named: colorName)!
+            cell.contentView.layer.cornerRadius = 20
+            
+            // Добавляем внутренние тени
+            cell.contentView.addShadow(to: [.top, .left], radius: 11, opacity: 0.140, color: UIColor.black.cgColor, insets: (x: 4, y: 2))
+            cell.contentView.addShadow(to: [.bottom, .right], radius: 3, opacity: 0.05, color: UIColor(named: "TextColorMain")!.cgColor, insets: (x: 0, y: 0))
+            
+        } else {
+            
+            
+            // Убираем внутренние тени 
+            cell.contentView.removeAllShadows()
+            
+            // Устанавливаем новый цвет рамок
+            setBordersFor(cell: cell, borderWidth: borderWidth, colorName: "CollectionCard1")
+            
+            
+            cell.contentView.backgroundColor = UIColor(named: colorName)!
+            cell.contentView.layer.cornerRadius = 20
+
+            // Создаем тень
+            cell.layer.shadowColor = UIColor.black.cgColor
+            cell.layer.shadowOpacity = 0.43
+            cell.layer.shadowOffset = CGSize(width: -3.0, height: 3.0)
+            cell.layer.shadowRadius = 13
+
+            // Без этой строчки ничего не отобразится
+            cell.layer.masksToBounds = false
+
+            // Следующие шаги позволяют быстрее редактировать тени
+            cell.layer.shadowPath = UIBezierPath(rect: cell.bounds).cgPath
+            cell.layer.shouldRasterize  = true
+            cell.layer.rasterizationScale = UIScreen.main.scale
+        }
+    }
+    
+    private func setBordersFor(cell: CollectionCell, borderWidth: CGFloat, colorName: String) {
+        cell.contentView.frame = cell.contentView.frame.insetBy(dx: -borderWidth, dy: -borderWidth)
+        cell.contentView.layer.borderColor = UIColor(named: "\(colorName)")!.cgColor
+        cell.contentView.layer.borderWidth = borderWidth
+    }
+    
+    // ALERT CONTROLLER
+    
+    func createAlert(with mainTitle: String, message: String?, style: UIAlertController.Style, indexPath: IndexPath) {
+        
+        let alertVC = UIAlertController(title: mainTitle, message: message, preferredStyle: style)
+        alertVC.overrideUserInterfaceStyle = .dark
+        // AlertControllerStyle
+        
+        //CollectionCard0
+        
+        // ----------------------
+        
+        let doneButton = UIAlertAction(title: "Понятно", style: .default) { [weak self] _ in
+            
+            guard let cell = self?.collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
+            
+            self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.15, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
+            cell.contentView.removeAllShadows()
+        }
+        
+        alertVC.addAction(doneButton)
+        
+        present(alertVC, animated: true, completion: nil)
+        
     }
 }
 
