@@ -29,6 +29,8 @@ class AddMenuTable: UIViewController {
         super.viewDidLoad()
         setupDesight()
         
+        textFieldName.becomeFirstResponder()
+        
         self.textFieldName.delegate = self
         self.textFieldAmount.delegate = self
     }

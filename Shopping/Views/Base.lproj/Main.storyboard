@@ -102,7 +102,7 @@
                                                     <rect key="frame" x="16" y="15" width="24" height="23"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="Gbj-wF-VlL"/>
-                                                        <constraint firstAttribute="height" constant="23" id="HXt-2M-BK4"/>
+                                                        <constraint firstAttribute="height" constant="24" id="HXt-2M-BK4"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                     <color key="tintColor" red="0.6470588235294118" green="0.6470588235294118" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -143,6 +143,7 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="amountLabel" destination="Y9u-qz-Wks" id="jsG-td-Rrl"/>
+                                            <outlet property="button" destination="gYQ-Kf-YTI" id="Kma-Cn-NaW"/>
                                             <outlet property="nameLabel" destination="deS-0E-pn0" id="48C-Xq-VNG"/>
                                         </connections>
                                     </tableViewCell>
@@ -180,9 +181,11 @@
                     <navigationItem key="navigationItem" title="Products" largeTitleDisplayMode="always" id="OXc-nH-xnb"/>
                     <connections>
                         <outlet property="tableView" destination="KvW-Xi-bMx" id="eE9-0i-Zm4"/>
+                        <segue destination="55R-jn-7T4" kind="unwind" identifier="getDataFromTableVC" unwindAction="getDataFromTableVC:" id="xJi-Kl-Ga2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNx-ud-pby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="55R-jn-7T4" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1498.5507246376812" y="93.75"/>
         </scene>

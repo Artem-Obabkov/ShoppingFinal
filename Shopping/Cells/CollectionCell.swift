@@ -28,10 +28,10 @@ class CollectionCell: UICollectionViewCell {
         print("Action button on collection cell tapped")
     }
     
-    override func prepareForReuse(){
-        super.prepareForReuse()
-        button.setImage(nil, for: .normal)
-        textLabel.text = nil
-        setupTextLabel()
-    }
+//    override func prepareForReuse(){
+//        super.prepareForReuse()
+//        button.setImage(nil, for: .normal)
+//        textLabel.text = nil
+//        setupTextLabel()
+//    }
 }

@@ -17,6 +17,8 @@ class TableVC: UIViewController {
     
     var list: List!
     
+    var indexPath: IndexPath?
+    
     //var delegate: TableVCDelegate?
     
     override func viewDidLoad() {
@@ -25,23 +27,24 @@ class TableVC: UIViewController {
         setupTableView(sender: tableView)
         setupNavigationController()
         addButtons()
-        
         self.title = list.name
+        
+        if let indexPath = indexPath {
+            print(indexPath.row)
+        }
+        
     }
     
     @objc func leftButtonAction(){
         self.navigationController!.popViewController(animated: true)
-        //delegate?.changeCardDesignInCollection(true)
+        performSegue(withIdentifier: "getDataFromTableVC", sender: self)
     }
     
-    @objc func rightButtonAction() { 
+    @objc func rightButtonAction() {
         self.list.products.removeAll()
         self.tableView.reloadData()
     }
     
-    @IBAction func getDataFromAddMenuSecond(segue: UIStoryboardSegue) {
-        
-    }
     
     // DELETE ROWS | BUTTON DESIGN
     
@@ -77,12 +80,26 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
         cell.amountLabel.text = list.products[indexPath.row].amount
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
+        // Мы назначаем TableVC ответственным за выполнение кода ячейки
+        cell.delegate = self
+        cell.indexPath = indexPath.row
+        cell.product = list.products[indexPath.row]
+
+        self.isActiveButton(for: cell, isActive: list.products[indexPath.row].isSelected)
+        
+        cell.button.addTarget(self, action: #selector(buttonOnCellTapped(sender:)), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc func buttonOnCellTapped(sender: UIButton) {
+        print("Tapped")
+        
     }
     
 }
 
-// GET DATA
+// GET DATA FROM ADD MENU TABLE
 
 extension TableVC: AddMenuTVDelegate {
     
@@ -96,4 +113,20 @@ extension TableVC: AddMenuTVDelegate {
         guard segue.identifier == "AddViewTable", let addMenu = segue.destination as? AddMenuTable else { return }
         addMenu.delegate = self
     }
+}
+
+// CHECKMARK ON TABLE VIEW CELL
+
+extension TableVC: TableCellDelegate {
+    
+    // В этом методе происходит логика при нажатии на checkmark каждой ячейки
+    func productAction(cell: TableCell, product: Product, indexPath: Int) {
+
+        self.isActiveButton(for: cell, isActive: product.isSelected)
+        list.products[indexPath] = product
+        self.tableView.reloadData()
+
+
+    }
+
 }

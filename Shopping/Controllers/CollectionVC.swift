@@ -26,6 +26,8 @@ class CollectionVC: UIViewController {
     
     var listItem: List?
     
+    var indexPathToShare: IndexPath?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,7 +77,7 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
         // Обрезаем углы
         addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
         
-        cell.prepareForReuse()
+        //cell.prepareForReuse()
 
         cell.button.setImage(UIImage(named: "CheckMarkCV"), for: .normal)
         cell.textLabel.text = mainList[indexPath.row].name
@@ -154,8 +156,8 @@ extension CollectionVC: UIGestureRecognizerDelegate {
             let cell = collectionView.cellForItem(at: indexPath)!
             
             
-            
             self.listItem = mainList[indexPath.row]
+            self.indexPathToShare = indexPath
             performSegue(withIdentifier: "ShowTableView", sender: nil)
             
             // Позволяет применить дизайн к карточке с задержкой, после перехода на Table VC
@@ -171,5 +173,18 @@ extension CollectionVC: UIGestureRecognizerDelegate {
         guard segue.identifier == "ShowTableView", let tableVC = segue.destination as? TableVC else { return }
         
         tableVC.list = listItem
+        tableVC.indexPath = indexPathToShare
+        
     }
+    
+    // GET DATA FROM TABLEVC
+    @IBAction func getDataFromTableVC(_ segue: UIStoryboardSegue) {
+        guard let tableVC = segue.source as? TableVC else { return }
+        
+        if let indexPath = tableVC.indexPath {
+            self.mainList[indexPath] = tableVC.list
+        }
+        
+    }
+    
 }

@@ -83,4 +83,24 @@ extension TableVC {
         action.backgroundColor = UIColor(named: "RedColorFrom")
         return action
     }
+    
+    // CELL BUTTON DESIGN
+    func isActiveButton(for cell: TableCell, isActive: Bool) {
+        
+        if isActive {
+            let color = UIColor(named: "GreenColorFrom")!
+            let configuration = UIImage.SymbolConfiguration(scale: .large)
+            let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
+            
+            cell.button.setImage(image, for: .normal)
+            
+        } else {
+            let configuration = UIImage.SymbolConfiguration(scale: .large)
+            let image = UIImage(systemName: "circle", withConfiguration: configuration)
+            
+            cell.button.setImage(image, for: .normal)
+            
+        }
+        
+    }
 }
