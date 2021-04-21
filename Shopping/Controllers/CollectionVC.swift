@@ -182,7 +182,7 @@ extension CollectionVC: UIGestureRecognizerDelegate {
         guard let tableVC = segue.source as? TableVC else { return }
         
         if let indexPath = tableVC.indexPath {
-            self.mainList[indexPath] = tableVC.list
+            //self.mainList[indexPath] = tableVC.list
         }
         
     }
