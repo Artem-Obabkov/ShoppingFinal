@@ -7,4 +7,4 @@
 
 import UIKit
 
-
+let screenWidth = UIScreen.main.bounds.size.width

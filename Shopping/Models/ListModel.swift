@@ -6,12 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct List {
+class List: Object {
     
-    var name: String
-    var isFavourite: Bool = false
-    var products: [Product] = [Product]()
+    @objc dynamic var name: String
+    @objc dynamic var isFavourite: Bool = false
+    @objc dynamic var products: [Product] = [Product]()
     
     init(name: String, isFavourite: Bool){
         self.name = name

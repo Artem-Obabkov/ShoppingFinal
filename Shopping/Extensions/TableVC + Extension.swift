@@ -74,6 +74,8 @@ extension TableVC {
         
     }
     
+    // SWIPE ACTIONS
+    
     func deleteRowAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
             self.list.products.remove(at: indexPath.row)
@@ -84,21 +86,57 @@ extension TableVC {
         return action
     }
     
+    func selectProduct(at indexPath: IndexPath) -> UIContextualAction {
+        
+        let action = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
+            
+            // TODO: Leading swipe action logic
+            completion(true)
+            
+        }
+        
+        action.backgroundColor = UIColor(named: "GreenColorFrom")
+        action.image = UIImage(systemName: "checkmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .light))
+        
+        return action
+    }
+    
+    
     // CELL BUTTON DESIGN
     func isActiveButton(for cell: TableCell, isActive: Bool) {
         
         if isActive {
+            
             let color = UIColor(named: "GreenColorFrom")!
             let configuration = UIImage.SymbolConfiguration(scale: .large)
             let image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
             
             cell.button.setImage(image, for: .normal)
             
+            // CELL DESIGN
+            
+            let textColor = UIColor(named: "UnactiveButton")
+
+            cell.contentView.backgroundColor = UIColor.clear
+            cell.nameLabel.textColor = textColor
+            cell.amountLabel.textColor = textColor
+            
+            
         } else {
+            
             let configuration = UIImage.SymbolConfiguration(scale: .large)
             let image = UIImage(systemName: "circle", withConfiguration: configuration)
             
             cell.button.setImage(image, for: .normal)
+            
+            // CELL DESIGN
+            
+            let textColor = UIColor(named: "TextColorMain")
+            
+            //CardBGGradientFrom NavigationBarColor
+            //cell.contentView.backgroundColor = UIColor(named: "NavigationBarColor")
+            cell.nameLabel.textColor = textColor
+            cell.amountLabel.textColor = textColor
             
         }
         

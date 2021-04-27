@@ -64,6 +64,8 @@ class CollectionVC: UIViewController {
     
 }
 
+// DELEGATE / DATASOURCE
+
 extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -73,13 +75,17 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! CollectionCell
         
-        //cell.backgroundColor = UIColor.green
-        // Обрезаем углы
+        // CELL DESIGN
         addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
         
-        //cell.prepareForReuse()
+        let card = mainList[indexPath.row]
+        
+        isActiveCollCellButton(for: cell, isActive: card.isFavourite)
+        
+        cell.delegate = self
+        cell.card = card
+        cell.indexPath = indexPath
 
-        cell.button.setImage(UIImage(named: "CheckMarkCV"), for: .normal)
         cell.textLabel.text = mainList[indexPath.row].name
         
         return cell
@@ -125,13 +131,9 @@ extension CollectionVC: UIGestureRecognizerDelegate {
 
         if let indexPath = collectionView?.indexPathForItem(at: pozition) {
 
-            //guard let cell = collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
-            
-
             createAlert(with: "Дополнительная информация", message: nil, style: .actionSheet, indexPath: indexPath)
 
             print("Long press at item: \(indexPath.row)")
-
 
         }
 
@@ -160,7 +162,7 @@ extension CollectionVC: UIGestureRecognizerDelegate {
             self.indexPathToShare = indexPath
             performSegue(withIdentifier: "ShowTableView", sender: nil)
             
-            // Позволяет применить дизайн к карточке с задержкой, после перехода на Table VC
+            // Применяет дизайн к карточке с задержкой, после перехода на Table VC
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
                 self.addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
             }
@@ -177,14 +179,61 @@ extension CollectionVC: UIGestureRecognizerDelegate {
         
     }
     
+    
     // GET DATA FROM TABLEVC
     @IBAction func getDataFromTableVC(_ segue: UIStoryboardSegue) {
         guard let tableVC = segue.source as? TableVC else { return }
         
         if let indexPath = tableVC.indexPath {
-            //self.mainList[indexPath] = tableVC.list
+            self.mainList[indexPath.row] = tableVC.list
         }
         
     }
     
+}
+
+// CHECKMARK ON CARD
+
+extension CollectionVC: CollectionCellDelegate {
+    
+    func cardAction(cell: CollectionCell, card: List, indexPath: IndexPath) {
+        
+        self.isActiveCollCellButton(for: cell, isActive: card.isFavourite)
+        
+        print("\(card.isFavourite)")
+        
+        let indexPathLast = IndexPath(item: mainList.count - 1, section: indexPath.section)
+        mainList[indexPath.row] = card
+        if card.isFavourite {
+            
+            UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) {
+                self.collectionView.moveItem(at: indexPath, to: indexPathLast)
+            }
+            
+            mainList.remove(at: indexPath.row)
+            self.mainList.append(card)
+            
+        } else {
+            
+            mainList[indexPath.row] = card
+            
+            UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) {
+                self.collectionView.moveItem(at: indexPath, to: [0,0])
+            }
+            
+            mainList.remove(at: indexPath.row)
+            self.mainList.insert(card, at: 0)
+
+        }
+        
+        self.collectionView.reloadData()
+        
+    }
+    
+    
+    
+//    override func setEditing(_ editing: Bool, animated: Bool) {
+//        super.setEditing(editing, animated: animated)
+//        collectionView.setEditing(editing, animated: animated)
+//    }
 }

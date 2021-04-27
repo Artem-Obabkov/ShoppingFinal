@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,18 +19,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hjv-O6-FeO">
-                        <rect key="frame" x="16" y="16" width="25" height="25"/>
+                        <rect key="frame" x="14" y="14" width="27" height="27"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="cRK-uk-uVA"/>
-                            <constraint firstAttribute="width" constant="25" id="sz3-Cw-UDP"/>
+                            <constraint firstAttribute="height" constant="27" id="cRK-uk-uVA"/>
+                            <constraint firstAttribute="width" constant="27" id="sz3-Cw-UDP"/>
                         </constraints>
-                        <state key="normal" image="CheckMarkCV"/>
+                        <state key="normal">
+                            <imageReference key="image" image="circle" catalog="system" symbolScale="large"/>
+                        </state>
                         <connections>
                             <action selector="buttonAction:" destination="tei-bo-HZi" eventType="touchUpInside" id="6Rk-Bv-C8U"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A lot of text a lot of text a lot of text a lot of text" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z8R-uA-H6T">
-                        <rect key="frame" x="16" y="53" width="112" height="72"/>
+                        <rect key="frame" x="16" y="49" width="112" height="72"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="112" id="KEB-qf-rm3"/>
                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="20" id="eaA-KU-gxl"/>
@@ -41,10 +44,10 @@
                 </subviews>
                 <color key="backgroundColor" name="CollectionCard0"/>
                 <constraints>
-                    <constraint firstItem="hjv-O6-FeO" firstAttribute="leading" secondItem="PbP-mx-oHo" secondAttribute="leading" constant="16" id="5of-Cj-Cc3"/>
-                    <constraint firstItem="z8R-uA-H6T" firstAttribute="top" secondItem="hjv-O6-FeO" secondAttribute="bottom" constant="12" id="IYw-iN-AJ9"/>
+                    <constraint firstItem="hjv-O6-FeO" firstAttribute="leading" secondItem="PbP-mx-oHo" secondAttribute="leading" constant="14" id="5of-Cj-Cc3"/>
+                    <constraint firstItem="z8R-uA-H6T" firstAttribute="top" secondItem="hjv-O6-FeO" secondAttribute="bottom" constant="8" id="IYw-iN-AJ9"/>
                     <constraint firstItem="z8R-uA-H6T" firstAttribute="leading" secondItem="PbP-mx-oHo" secondAttribute="leading" constant="16" id="PNn-dG-5JY"/>
-                    <constraint firstItem="hjv-O6-FeO" firstAttribute="top" secondItem="PbP-mx-oHo" secondAttribute="top" constant="16" id="sic-DS-2qJ"/>
+                    <constraint firstItem="hjv-O6-FeO" firstAttribute="top" secondItem="PbP-mx-oHo" secondAttribute="top" constant="14" id="sic-DS-2qJ"/>
                 </constraints>
             </collectionViewCellContentView>
             <connections>
@@ -55,7 +58,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="CheckMarkCV" width="200" height="200"/>
+        <image name="circle" catalog="system" width="128" height="121"/>
         <namedColor name="CollectionCard0">
             <color red="0.10199999809265137" green="0.10999999940395355" blue="0.12200000137090683" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -6,9 +6,17 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct Product {
-    var isSelected: Bool = false
-    var name: String
-    var amount: String
+class Product: Object {
+    @objc dynamic var isSelected: Bool = false
+    @objc dynamic var name: String = ""
+    @objc dynamic var amount: String = ""
+    
+    convenience init(isSelected: Bool, name: String, amount: String) {
+        self.init()
+        self.isSelected = isSelected
+        self.name = name
+        self.amount = amount
+    }
 }

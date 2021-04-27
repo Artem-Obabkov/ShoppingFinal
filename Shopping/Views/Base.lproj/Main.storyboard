@@ -178,7 +178,7 @@
                             <constraint firstItem="a7X-FN-aTA" firstAttribute="bottom" secondItem="qRv-zx-mzh" secondAttribute="bottom" constant="31" id="rbP-5C-0GT"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Products" largeTitleDisplayMode="always" id="OXc-nH-xnb"/>
+                    <navigationItem key="navigationItem" title="Products" largeTitleDisplayMode="never" id="OXc-nH-xnb"/>
                     <connections>
                         <outlet property="tableView" destination="KvW-Xi-bMx" id="eE9-0i-Zm4"/>
                         <segue destination="55R-jn-7T4" kind="unwind" identifier="getDataFromTableVC" unwindAction="getDataFromTableVC:" id="xJi-Kl-Ga2"/>
@@ -215,7 +215,7 @@
                                             <action selector="tfAction:" destination="XKd-Ym-vdZ" eventType="editingDidEnd" id="Wbr-3t-9Ig"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавть список" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aW-c8H">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Добавить список" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="rXu-aW-c8H">
                                         <rect key="frame" x="32" y="18" width="236" height="28"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="28" id="PmY-Ps-Zfa"/>

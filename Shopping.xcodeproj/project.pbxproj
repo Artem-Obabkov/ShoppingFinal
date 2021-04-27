@@ -14,6 +14,7 @@
 		8B22DF8426220C52003604D9 /* AddMenuTV + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22DF8326220C52003604D9 /* AddMenuTV + Extension.swift */; };
 		8B22DF96262AF027003604D9 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22DF95262AF026003604D9 /* UIView + Extension.swift */; };
 		8B22DF99262C9016003604D9 /* UIAlertAction + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22DF98262C9016003604D9 /* UIAlertAction + Extension.swift */; };
+		8B22DF9C263854F2003604D9 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B22DF9B263854F2003604D9 /* RealmManager.swift */; };
 		8B7FE74426189B860014362D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE74326189B860014362D /* AppDelegate.swift */; };
 		8B7FE74626189B860014362D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE74526189B860014362D /* SceneDelegate.swift */; };
 		8B7FE74B26189B860014362D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B7FE74926189B860014362D /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 		8B22DF8326220C52003604D9 /* AddMenuTV + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AddMenuTV + Extension.swift"; sourceTree = "<group>"; };
 		8B22DF95262AF026003604D9 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		8B22DF98262C9016003604D9 /* UIAlertAction + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertAction + Extension.swift"; sourceTree = "<group>"; };
+		8B22DF9B263854F2003604D9 /* RealmManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		8B7FE74026189B860014362D /* Shopping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Shopping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B7FE74326189B860014362D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8B7FE74526189B860014362D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				8B7FE7802618AF450014362D /* GradientManager.swift */,
+				8B22DF9B263854F2003604D9 /* RealmManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				8B22DF99262C9016003604D9 /* UIAlertAction + Extension.swift in Sources */,
 				8B22DF96262AF027003604D9 /* UIView + Extension.swift in Sources */,
 				8B7FE76926189D020014362D /* ListModel.swift in Sources */,
+				8B22DF9C263854F2003604D9 /* RealmManager.swift in Sources */,
 				8B7FE77626189EF00014362D /* CollectionVC + Extension.swift in Sources */,
 				8B7FE79D261A47FF0014362D /* TableCell.swift in Sources */,
 				8B22DF8126220C01003604D9 /* AddMenuCV + Extension.swift in Sources */,

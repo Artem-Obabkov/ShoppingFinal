@@ -189,6 +189,31 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         cell.contentView.layer.borderWidth = borderWidth
     }
     
+    func isActiveCollCellButton(for cell: CollectionCell, isActive: Bool) {
+        
+        if isActive {
+            
+            let color = UIColor(named: "GreenColorFrom")!
+            let configuration = UIImage.SymbolConfiguration(pointSize: 27, weight: .regular, scale: .large)
+            let image = UIImage(systemName: "checkmark.seal.fill", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
+
+            cell.button.setImage(image, for: .normal)
+            
+            
+            
+        } else {
+            
+            //UIImage(systemName: "checkmark.seal", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))
+            
+            let color = UIColor(named: "TextFieldPlaceholderColor")!
+            let configuration = UIImage.SymbolConfiguration(pointSize: 27, weight: .regular, scale: .large)
+            let image = UIImage(systemName: "checkmark.seal", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
+
+            cell.button.setImage(image, for: .normal)
+
+        }
+    }
+    
     // ALERT CONTROLLER
     
     func createAlert(with mainTitle: String, message: String?, style: UIAlertController.Style, indexPath: IndexPath) {
@@ -199,11 +224,12 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         
         guard let cell = self.collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
         
+        
+        
         // ALERT ACTIONS
         
         let cancelButton = UIAlertAction(title: "Отмена", style: .default) { [weak self] _ in
-            
-            self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.15, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
+            self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.10, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
             cell.contentView.removeAllShadows()
         }
         

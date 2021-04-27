@@ -8,7 +8,7 @@
 import UIKit
 
 protocol TableCellDelegate {
-    func productAction(cell: TableCell, product: Product, indexPath: Int)
+    func productAction(cell: TableCell, product: Product, indexPath: IndexPath)
 }
 
 class TableCell: UITableViewCell {
@@ -19,7 +19,7 @@ class TableCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     
     var product: Product?
-    var indexPath: Int?
+    var indexPath: IndexPath?
     // Передача данных с помощью делегирования.
     var delegate: TableCellDelegate?
     

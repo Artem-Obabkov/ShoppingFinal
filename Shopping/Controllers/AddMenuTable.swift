@@ -66,7 +66,7 @@ class AddMenuTable: UIViewController {
                 amount = textFieldAmount.text!
             }
             
-            let product = Product(name: textFieldName.text!, amount: "x\(amount)")
+            let product = Product(isSelected: false, name: textFieldName.text!, amount: "x\(amount)")
             
             // Передаем данные на TableVC в реальном времени
             delegate?.passData(item: product)
@@ -99,7 +99,6 @@ extension AddMenuTable: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         if textField == self.textFieldName {
-            //print("Hello")
             self.textFieldAmount.becomeFirstResponder()
         }
         
