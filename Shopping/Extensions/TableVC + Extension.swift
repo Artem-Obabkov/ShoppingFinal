@@ -78,7 +78,10 @@ extension TableVC {
     
     func deleteRowAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
-            self.list.products.remove(at: indexPath.row)
+            try? realm.write {
+                self.editList.products.remove(at: indexPath.row)
+            }
+            
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             completion(true)
         }

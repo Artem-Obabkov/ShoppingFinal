@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 //protocol TableVCDelegate {
 //    func changeCardDesignInCollection(_: Bool)
@@ -15,9 +16,7 @@ class TableVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    var list: List!
-    
-    var indexPath: IndexPath?
+    var editList: MainList!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,37 +25,27 @@ class TableVC: UIViewController {
         setupNavigationController()
         addButtons()
         
-        self.title = list.name
-
+        self.title = editList.name
     }
     
     @objc func leftButtonAction(){
         self.navigationController!.popViewController(animated: true)
-        performSegue(withIdentifier: "getDataFromTableVC", sender: self)
     }
     
     @objc func rightButtonAction() {
-        self.list.products.removeAll()
+        try? realm.write {
+            self.editList.products.removeAll()
+        }
         self.tableView.reloadData()
     }
     
     
     // DELETE ROWS | BUTTON DESIGN
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            list.products.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        
         let delete = deleteRowAction(at: indexPath)
-        
-        
-        
+    
         return UISwipeActionsConfiguration(actions: [delete])
     }
     
@@ -82,7 +71,7 @@ class TableVC: UIViewController {
 extension TableVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return list.products.isEmpty ? 0 : list.products.count
+        return editList.products.isEmpty ? 0 : editList.products.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -91,15 +80,15 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
         //cell.contentView.backgroundColor = UIColor.clear
         cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
-        cell.nameLabel.text = list.products[indexPath.row].name
-        cell.amountLabel.text = list.products[indexPath.row].amount
+        cell.nameLabel.text = editList.products[indexPath.row].name
+        cell.amountLabel.text = editList.products[indexPath.row].amount
         
         // назначаем TableVC ответственным за выполнение кода ячейки
         cell.delegate = self
         cell.indexPath = indexPath
-        cell.product = list.products[indexPath.row]
+        cell.product = editList.products[indexPath.row]
 
-        self.isActiveButton(for: cell, isActive: list.products[indexPath.row].isSelected)
+        self.isActiveButton(for: cell, isActive: editList.products[indexPath.row].isSelected)
         
         return cell
     }
@@ -109,8 +98,13 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
 
 extension TableVC: AddMenuTVDelegate {
     
-    func passData(item: Product) {
-        list.products.insert(item, at: 0)
+    func passData(item: List<Product>) {
+        
+        try? realm.write {
+            editList.products.insert(contentsOf: item, at: 0)
+        }
+        StorageManager.saveData(editList)
+        
         self.tableView.reloadData()
     }
     
@@ -130,18 +124,23 @@ extension TableVC: TableCellDelegate {
 
         self.isActiveButton(for: cell, isActive: product.isSelected)
         
-        let indexPathLast = IndexPath(row: list.products.count - 1, section: indexPath.section)
+        let indexPathLast = IndexPath(row: editList.products.count - 1, section: indexPath.section)
         
         if product.isSelected {
             
-            list.products[indexPath.row] = product
+            try? realm.write {
+                editList.products[indexPath.row] = product
+            }
+            
             
             UIView.transition(with: tableView, duration: 0.2, options: .transitionCrossDissolve) {
                 self.tableView.moveRow(at: indexPath, to: indexPathLast)
             }
             
-            list.products.remove(at: indexPath.row)
-            self.list.products.append(product)
+            try? realm.write {
+                editList.products.remove(at: indexPath.row)
+                self.editList.products.append(product)
+            }
             
         } else {
             
@@ -149,9 +148,11 @@ extension TableVC: TableCellDelegate {
                 self.tableView.moveRow(at: indexPath, to: [0,0])
             }
             
-            list.products.remove(at: indexPath.row)
-            self.list.products.insert(product, at: 0)
-
+            try? realm.write {
+                editList.products.remove(at: indexPath.row)
+                self.editList.products.insert(product, at: 0)
+            }
+            
         }
         self.tableView.reloadData()
         
@@ -161,7 +162,4 @@ extension TableVC: TableCellDelegate {
         super.setEditing(editing, animated: animated)
         tableView.setEditing(editing, animated: animated)
     }
-    
-    
-
 }

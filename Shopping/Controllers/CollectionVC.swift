@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 
 class CollectionVC: UIViewController {
@@ -17,16 +18,18 @@ class CollectionVC: UIViewController {
     let interItemSpacing: CGFloat = 22.0
     let edgeSpacing: CGFloat = 32.0
     var widthPerItem: CGFloat = 0.0
+    
     // Логика ячеки
     var shouldUnhilight: Bool = true
     
     
     // Основной массив
-    var mainList = [List]()
     
-    var listItem: List?
+    var topLevel: Results<TopLevelModel>!
     
-    var indexPathToShare: IndexPath?
+    var mainList = [MainList]()
+    
+    var listItem: MainList?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,10 @@ class CollectionVC: UIViewController {
         // Переход на другое View
         setupTapGestureOnCollectionCell()
         
+        topLevel
+        
+        mainList = realm.objects(MainList.self)
+        
         collectionView.reloadData()
     }
     
@@ -51,11 +58,9 @@ class CollectionVC: UIViewController {
         
         guard let addMenu = segue.source as? AddMenuCollection else { return }
         
-        if addMenu.textField.text != "" && addMenu.textField.text != nil {
-            let list = List(name: addMenu.textField.text!, isFavourite: false)
-            mainList.insert(list, at: 0)
-            collectionView.reloadData()
-        }        
+        addMenu.saveData()
+        self.collectionView.reloadData()
+
     }
     
     private func registerCells() {
@@ -110,7 +115,6 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
     }
-
 }
 
 
@@ -159,7 +163,7 @@ extension CollectionVC: UIGestureRecognizerDelegate {
             
             
             self.listItem = mainList[indexPath.row]
-            self.indexPathToShare = indexPath
+            //self.indexPathToShare = indexPath
             performSegue(withIdentifier: "ShowTableView", sender: nil)
             
             // Применяет дизайн к карточке с задержкой, после перехода на Table VC
@@ -174,63 +178,40 @@ extension CollectionVC: UIGestureRecognizerDelegate {
         
         guard segue.identifier == "ShowTableView", let tableVC = segue.destination as? TableVC else { return }
         
-        tableVC.list = listItem
-        tableVC.indexPath = indexPathToShare
-        
+        tableVC.editList = listItem
     }
-    
-    
-    // GET DATA FROM TABLEVC
-    @IBAction func getDataFromTableVC(_ segue: UIStoryboardSegue) {
-        guard let tableVC = segue.source as? TableVC else { return }
-        
-        if let indexPath = tableVC.indexPath {
-            self.mainList[indexPath.row] = tableVC.list
-        }
-        
-    }
-    
 }
 
 // CHECKMARK ON CARD
 
 extension CollectionVC: CollectionCellDelegate {
     
-    func cardAction(cell: CollectionCell, card: List, indexPath: IndexPath) {
+    func cardAction(cell: CollectionCell, card: MainList, indexPath: IndexPath) {
         
         self.isActiveCollCellButton(for: cell, isActive: card.isFavourite)
         
-        print("\(card.isFavourite)")
-        
         let indexPathLast = IndexPath(item: mainList.count - 1, section: indexPath.section)
-        mainList[indexPath.row] = card
+         
         if card.isFavourite {
             
-            UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) {
-                self.collectionView.moveItem(at: indexPath, to: indexPathLast)
+            UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) { [weak self] in
+                
+                try? realm.write {
+                    self?.collectionView.moveItem(at: indexPath, to: [0,0])
+                }
+                //self.mainList.sorted(byKeyPath: "isFavourite", ascending: true)
             }
-            
-            mainList.remove(at: indexPath.row)
-            self.mainList.append(card)
-            
+        
         } else {
             
-            mainList[indexPath.row] = card
-            
             UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) {
-                self.collectionView.moveItem(at: indexPath, to: [0,0])
+                try? realm.write {
+                    self.collectionView.moveItem(at: indexPath, to: indexPathLast)
+                }
             }
-            
-            mainList.remove(at: indexPath.row)
-            self.mainList.insert(card, at: 0)
-
         }
-        
-        self.collectionView.reloadData()
-        
+        //self.collectionView.reloadData()
     }
-    
-    
     
 //    override func setEditing(_ editing: Bool, animated: Bool) {
 //        super.setEditing(editing, animated: animated)

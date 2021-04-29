@@ -5,8 +5,8 @@
 //  Created by pro2017 on 07/04/2021.
 //
 
-import Foundation
 import RealmSwift
+
 
 class Product: Object {
     @objc dynamic var isSelected: Bool = false

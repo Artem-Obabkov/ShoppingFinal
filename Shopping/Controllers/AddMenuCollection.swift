@@ -33,8 +33,8 @@ class AddMenuCollection: UIViewController {
     
     @IBAction func addButtonAction(_ sender: UIButton) {
         
-        performDataPassing()
-        
+        performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -42,12 +42,12 @@ class AddMenuCollection: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    private func performDataPassing() {
+    func saveData() {
         
         if self.textField.text != nil && self.textField.text != "" {
             
-            performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
-            dismiss(animated: true, completion: nil)
+            let listItem = MainList(name: "\(textField.text!)", isFavourite: false)
+            StorageManager.saveData(listItem)
             
         } else {
             
@@ -64,7 +64,8 @@ extension AddMenuCollection: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == self.textField {
-            performDataPassing()
+            performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
+            dismiss(animated: true, completion: nil)
             textField.resignFirstResponder()
         }
         

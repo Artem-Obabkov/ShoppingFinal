@@ -8,13 +8,14 @@
 import UIKit
 import RealmSwift
 
-class List: Object {
+class MainList: Object {
     
-    @objc dynamic var name: String
+    @objc dynamic var name: String = ""
     @objc dynamic var isFavourite: Bool = false
-    @objc dynamic var products: [Product] = [Product]()
+    var products = List<Product>()
     
-    init(name: String, isFavourite: Bool){
+    convenience init(name: String, isFavourite: Bool){
+        self.init()
         self.name = name
         self.isFavourite = isFavourite
     }

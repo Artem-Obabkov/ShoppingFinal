@@ -6,9 +6,10 @@
 //
 
 import UIKit
+import RealmSwift
 
 protocol AddMenuTVDelegate {
-    func passData(item: Product)
+    func passData(item: List<Product>)
 }
 
 class AddMenuTable: UIViewController {
@@ -25,6 +26,8 @@ class AddMenuTable: UIViewController {
     
     var delegate: AddMenuTVDelegate?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupDesight()
@@ -33,6 +36,8 @@ class AddMenuTable: UIViewController {
         
         self.textFieldName.delegate = self
         self.textFieldAmount.delegate = self
+        
+        
     }
     
     @IBAction func textFieldNameAction(_ sender: UITextField) {
@@ -67,9 +72,13 @@ class AddMenuTable: UIViewController {
             }
             
             let product = Product(isSelected: false, name: textFieldName.text!, amount: "x\(amount)")
-            
+            let products = List<Product>()
+            products.append(product)
             // Передаем данные на TableVC в реальном времени
-            delegate?.passData(item: product)
+            
+            delegate?.passData(item: products)
+            
+            
             
             textFieldName.text = ""
             textFieldAmount.text = ""

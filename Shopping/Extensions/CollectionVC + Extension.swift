@@ -238,13 +238,12 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
             self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.10, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
             cell.contentView.removeAllShadows()
             
+            guard let item = self?.mainList[indexPath.row] else { return }
+            
             self?.collectionView.performBatchUpdates {
                 self?.collectionView.deleteItems(at: [indexPath])
-                self?.mainList.remove(at: indexPath.row)
+                StorageManager.deleteData(item)
             }
-            
-            self?.collectionView.reloadData()
-            
         }
         
         let editButton = UIAlertAction(title: "Редактировать", style: .default) { [weak self] action in

@@ -36,7 +36,10 @@ class TableCell: UITableViewCell {
     @IBAction func buttonAction(_ sender: UIButton) {
         if var product = product, let indexPath = indexPath {
             
-            product.isSelected.toggle()
+            try? realm.write {
+                product.isSelected.toggle()
+            }
+            
             self.delegate?.productAction(cell: self, product: product, indexPath: indexPath)
         }
     }

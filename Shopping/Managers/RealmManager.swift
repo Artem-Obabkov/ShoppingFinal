@@ -10,9 +10,14 @@ import RealmSwift
 let realm = try! Realm()
 
 class StorageManager {
-    static func saveData(_ list: List) {
+    static func saveData(_ list: MainList) {
         try! realm.write {
             realm.add(list)
+        }
+    }
+    static func deleteData(_ list: MainList) {
+        try! realm.write {
+            realm.delete(list)
         }
     }
 }

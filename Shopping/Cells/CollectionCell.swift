@@ -10,7 +10,7 @@ import UIKit
 
 
 protocol CollectionCellDelegate {
-    func cardAction(cell: CollectionCell, card: List, indexPath: IndexPath)
+    func cardAction(cell: CollectionCell, card: MainList, indexPath: IndexPath)
 }
 
 class CollectionCell: UICollectionViewCell {
@@ -19,9 +19,10 @@ class CollectionCell: UICollectionViewCell {
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var textLabel: UILabel!
     
-    var delegate: CollectionCellDelegate?
-    var card: List?
+    var card: MainList?
     var indexPath: IndexPath?
+    // Передача данных с помощью делегирования
+    var delegate: CollectionCellDelegate?
     
     
     let highlightedColor: UIColor = UIColor(named: "RedColorFrom")!
@@ -36,9 +37,10 @@ class CollectionCell: UICollectionViewCell {
     @IBAction func buttonAction(_ sender: UIButton) {
         if var card = card, let indexPath = indexPath {
             
-            print(card.isFavourite)
-            card.isFavourite.toggle()
-            print(card.isFavourite)
+            try? realm.write {
+                card.isFavourite.toggle()
+            }
+            
             self.delegate?.cardAction(cell: self, card: card, indexPath: indexPath)
         }
     }
