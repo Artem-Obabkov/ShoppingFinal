@@ -18,8 +18,20 @@ class AddMenuCollection: UIViewController {
     let buttonRadius: CGFloat = 13.0
     let tfRadius: CGFloat = 12.0
     
+    var mainListToShare: MainList?
+    
+    // EDIT CARD
+    
+    var indexPathToRecieveAddMenu: IndexPath?
+    var editingBegan: Bool = false
+    var mainListEditing: MainList?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if mainListEditing != nil {
+            self.textField.text = mainListEditing?.name
+        }
         
         setupDesign()
         
@@ -28,13 +40,16 @@ class AddMenuCollection: UIViewController {
     }
     
     @IBAction func tfAction(_ sender: UITextField) {
-        
     }
     
     @IBAction func addButtonAction(_ sender: UIButton) {
         
-        performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
-        dismiss(animated: true, completion: nil)
+        if editingBegan {
+            self.getEditedDataFromAddMenu()
+        } else {
+            self.getDataFromAddMenu()
+        }
+        
     }
     
     
@@ -42,12 +57,28 @@ class AddMenuCollection: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func saveData() {
+    func getDataFromAddMenu() {
         
         if self.textField.text != nil && self.textField.text != "" {
             
             let listItem = MainList(name: "\(textField.text!)", isFavourite: false)
-            StorageManager.saveData(listItem)
+            self.mainListToShare = listItem
+            performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
+            
+        } else {
+            
+            createAlert(with: "Упс...", message: "Кажется вы ничего не ввели", style: .alert)
+        }
+    }
+    
+    func getEditedDataFromAddMenu() {
+        
+        if self.textField.text != nil && self.textField.text != "" {
+            
+            try? realm.write {
+                mainListEditing?.name = textField.text!
+            }
+            performSegue(withIdentifier: "getEditedDataFromAddMenu", sender: nil)
             
         } else {
             
@@ -64,11 +95,20 @@ extension AddMenuCollection: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == self.textField {
-            performSegue(withIdentifier: "getDataFromAddMenu", sender: nil)
-            dismiss(animated: true, completion: nil)
-            textField.resignFirstResponder()
+            
+            if self.editingBegan {
+                
+                self.getEditedDataFromAddMenu()
+                dismiss(animated: true, completion: nil)
+                textField.resignFirstResponder()
+                
+            } else {
+                
+                self.getDataFromAddMenu()
+                dismiss(animated: true, completion: nil)
+                textField.resignFirstResponder()
+            }
         }
-        
         return true
     }
     

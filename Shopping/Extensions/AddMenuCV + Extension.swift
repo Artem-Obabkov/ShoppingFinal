@@ -11,7 +11,6 @@ extension AddMenuCollection {
     
     func setupDesign() {
         
-        
         textField.layer.cornerRadius = tfRadius
         textField.clipsToBounds = true
         textField.attributedPlaceholder = NSAttributedString(string: "Куда идете...", attributes: [NSAttributedString.Key.foregroundColor: UIColor(named: "TextFieldPlaceholderColor")!, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .light)])
@@ -79,11 +78,8 @@ extension AddMenuCollection {
         doneButton.titleTextColor = UIColor(named: "TextColorMain")
         
         alertVC.addAction(doneButton)
-        
-        
-        
+    
         present(alertVC, animated: true, completion: nil)
         
     }
-    
 }

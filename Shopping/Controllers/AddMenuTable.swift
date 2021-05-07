@@ -26,17 +26,42 @@ class AddMenuTable: UIViewController {
     
     var delegate: AddMenuTVDelegate?
     
+    // EDIT PRODUCT
+    
+    var indexPathToRecieve: IndexPath?
+    var productToEdit: Product?
+    var editingBegan: Bool = false
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupDesight()
         
         textFieldName.becomeFirstResponder()
         
+        if editingBegan && productToEdit != nil {
+            
+            setupDesignForEditingState()
+            
+            doneButton.setTitle("Отмена", for: .normal)
+            addButton.setTitle("Готово", for: .normal)
+            
+            // Функция которая настраивает дизайн
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(99)) { [weak self] in
+                
+                var amount = self?.productToEdit?.amount
+                let x = amount?.firstIndex(of: "x")
+                amount?.remove(at: x!)
+                
+                self?.textFieldName.text = self?.productToEdit?.name
+                self?.textFieldAmount.text = amount
+            }
+            
+        } else {
+            setupDesight()
+        }
+        
         self.textFieldName.delegate = self
         self.textFieldAmount.delegate = self
-        
         
     }
     
@@ -49,7 +74,8 @@ class AddMenuTable: UIViewController {
     @IBAction func textFieldAmountAction(_ sender: UITextField) {
         guard let text: String = textFieldAmount.text else { return }
         
-        // Ограничиваем количество символов для ввода
+        // LIMIT AMOUNT OF INPUT SYMBOLS
+        
         if text.contains(".") {
             textFieldAmount.text = String(text.prefix(3))
         } else {
@@ -71,22 +97,20 @@ class AddMenuTable: UIViewController {
                 amount = textFieldAmount.text!
             }
             
-            let product = Product(isSelected: false, name: textFieldName.text!, amount: "x\(amount)")
-            let products = List<Product>()
-            products.append(product)
-            // Передаем данные на TableVC в реальном времени
-            
-            delegate?.passData(item: products)
-            
-            
-            
-            textFieldName.text = ""
-            textFieldAmount.text = ""
+            if editingBegan {
+                
+                saveEditedProduct()
+            } else {
+                
+                // SHARE DATA TO TABLEVC IN REAL TIME
+                saveProduct(with: amount)
+                textFieldName.text = ""
+                textFieldAmount.text = ""
+            }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(15)) {
                 self.textFieldName.becomeFirstResponder()
             }
-            
             
         } else {
             createAlert(with: "Упс...", message: "Кажется вы ничего не ввели", style: .alert)
@@ -96,6 +120,30 @@ class AddMenuTable: UIViewController {
     
     @IBAction func doneButtonAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    
+    func saveProduct(with amount: String) {
+        
+        let product = Product(isSelected: false, name: textFieldName.text!, amount: "x\(amount)")
+        let products = List<Product>()
+        products.append(product)
+        
+        // SHARE DATA TO TABLEVC IN REAL TIME
+        delegate?.passData(item: products)
+    }
+    
+    
+    func saveEditedProduct() {
+        
+        try? realm.write {
+            
+            productToEdit?.name = textFieldName.text!
+            productToEdit?.amount = "x\(textFieldAmount.text!)"
+            
+        }
+        
+        performSegue(withIdentifier: "GetEditedDataFromAddMenu", sender: nil)
     }
 
 }

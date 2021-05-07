@@ -13,7 +13,7 @@ extension TableVC {
     
     func setupTableView(sender: UITableView) {
         
-        // Gradien
+        // GRADIENT COLORS
         let firstBG = UIColor(named: "TableViewTo")!.cgColor
         let secondBG = UIColor(named: "CardBGGradientFrom")!.cgColor
         
@@ -89,23 +89,28 @@ extension TableVC {
         return action
     }
     
-    func selectProduct(at indexPath: IndexPath) -> UIContextualAction {
+    func editProduct(at indexPath: IndexPath) -> UIContextualAction {
         
-        let action = UIContextualAction(style: .normal, title: "") { (action, view, completion) in
+        let action = UIContextualAction(style: .normal, title: "") { [weak self] (action, view, completion) in
             
-            // TODO: Leading swipe action logic
+            
+            self?.indexPathToShare = indexPath
+            self?.productToShare = self?.editList.products[indexPath.row]
+            
+            self?.performSegue(withIdentifier: "EditProduct", sender: nil)
+            
             completion(true)
-            
         }
         
-        action.backgroundColor = UIColor(named: "GreenColorFrom")
-        action.image = UIImage(systemName: "checkmark.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .light))
+        action.backgroundColor = UIColor(named: "SlideButton")
+        action.image = UIImage(systemName: "pencil.circle", withConfiguration: UIImage.SymbolConfiguration(weight: .light))
         
         return action
     }
     
     
     // CELL BUTTON DESIGN
+    
     func isActiveButton(for cell: TableCell, isActive: Bool) {
         
         if isActive {
@@ -136,12 +141,9 @@ extension TableVC {
             
             let textColor = UIColor(named: "TextColorMain")
             
-            //CardBGGradientFrom NavigationBarColor
-            //cell.contentView.backgroundColor = UIColor(named: "NavigationBarColor")
             cell.nameLabel.textColor = textColor
             cell.amountLabel.textColor = textColor
             
         }
-        
     }
 }

@@ -34,7 +34,7 @@ class TableCell: UITableViewCell {
     }
     
     @IBAction func buttonAction(_ sender: UIButton) {
-        if var product = product, let indexPath = indexPath {
+        if let product = product, let indexPath = indexPath {
             
             try? realm.write {
                 product.isSelected.toggle()

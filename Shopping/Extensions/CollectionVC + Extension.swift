@@ -10,7 +10,7 @@ import UIKit
 
 extension CollectionVC: UICollectionViewDelegateFlowLayout {
     
-    // WORK WITH CELL
+    // WORK WITH CELL FRAME
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -55,14 +55,12 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
     
     // TAP GESTURES
     
-    func setupGesturesOnCollection() {
+    func setupGestureOnCollectionCell() {
 
         let longPressedGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(gestureRecognizer:)))
 
         longPressedGesture.minimumPressDuration = 0.3
         longPressedGesture.delegate = self
-        
-        //longPressedGesture.delaysTouchesEnded = true
 
         collectionView?.addGestureRecognizer(longPressedGesture)
     }
@@ -156,7 +154,6 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
             
         } else {
             
-            
             // Убираем внутренние тени 
             cell.contentView.removeAllShadows()
             
@@ -191,26 +188,25 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
     
     func isActiveCollCellButton(for cell: CollectionCell, isActive: Bool) {
         
+        
+        
         if isActive {
             
             let color = UIColor(named: "GreenColorFrom")!
             let configuration = UIImage.SymbolConfiguration(pointSize: 27, weight: .regular, scale: .large)
-            let image = UIImage(systemName: "checkmark.seal.fill", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
-
+            let image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
+            
+            //cell.button.backgroundColor = UIColor(named: "TextWhite")!
+            //cell.button.mask?.backgroundColor = UIColor(named: "TextWhite")!
             cell.button.setImage(image, for: .normal)
-            
-            
             
         } else {
             
-            //UIImage(systemName: "checkmark.seal", withConfiguration: UIImage.SymbolConfiguration(weight: .regular))
-            
             let color = UIColor(named: "TextFieldPlaceholderColor")!
             let configuration = UIImage.SymbolConfiguration(pointSize: 27, weight: .regular, scale: .large)
-            let image = UIImage(systemName: "checkmark.seal", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
+            let image = UIImage(systemName: "circle", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
 
             cell.button.setImage(image, for: .normal)
-
         }
     }
     
@@ -225,7 +221,6 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         guard let cell = self.collectionView.cellForItem(at: indexPath) as? CollectionCell else { return }
         
         
-        
         // ALERT ACTIONS
         
         let cancelButton = UIAlertAction(title: "Отмена", style: .default) { [weak self] _ in
@@ -238,24 +233,31 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
             self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.10, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
             cell.contentView.removeAllShadows()
             
-            guard let item = self?.mainList[indexPath.row] else { return }
-            
             self?.collectionView.performBatchUpdates {
-                self?.collectionView.deleteItems(at: [indexPath])
-                StorageManager.deleteData(item)
+                
+                try? realm.write {
+                    self?.mainList.remove(at: indexPath.row)
+                    self?.collectionView.deleteItems(at: [indexPath])
+                }
             }
         }
         
         let editButton = UIAlertAction(title: "Редактировать", style: .default) { [weak self] action in
-            print("Происходит редактирование элемента")
+            
+            self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.10, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
+            cell.contentView.removeAllShadows()
+            
+            self?.indexPathToTableVC = indexPath
+            self?.listItem = self?.mainList[indexPath.row]
+            self?.performSegue(withIdentifier: "EditCollectionCell", sender: nil)
+            
         }
         
-        //TextColorMain
+        // ALERT DESIGN
         
         editButton.titleTextColor = UIColor(named: "TextColorMain")
         cancelButton.titleTextColor = UIColor(named: "TextColorMain")
         deleteButton.titleTextColor = UIColor(named: "RedColorFrom")
-        
         
         alertVC.addAction(editButton)
         alertVC.addAction(cancelButton)
@@ -265,4 +267,3 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         
     }
 }
-

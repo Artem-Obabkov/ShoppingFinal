@@ -8,15 +8,20 @@
 import UIKit
 import RealmSwift
 
-//protocol TableVCDelegate {
-//    func changeCardDesignInCollection(_: Bool)
-//}
 
-class TableVC: UIViewController {
+class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
     
     var editList: MainList!
+    
+    var indexPathToReceive: IndexPath?
+    
+    
+    // EDIT PRODUCT
+    
+    var productToShare: Product?
+    var indexPathToShare: IndexPath?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,36 +44,7 @@ class TableVC: UIViewController {
         self.tableView.reloadData()
     }
     
-    
-    // DELETE ROWS | BUTTON DESIGN
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let delete = deleteRowAction(at: indexPath)
-    
-        return UISwipeActionsConfiguration(actions: [delete])
-    }
-    
-    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        // TODO: Leading swipe action
-        
-//        guard let cell = tableView.cellForRow(at: indexPath) as? TableCell else { return nil}
-//
-//        let product = list.products[indexPath.row]
-        
-        let selectAction = selectProduct(at: indexPath)
-        
-        return UISwipeActionsConfiguration(actions: [selectAction])
-    }
-}
-
-
-
-
-// DELEGATE|DATASOURCE
-
-extension TableVC: UITableViewDelegate, UITableViewDataSource {
+    // MAIN TABLEVIEW WORK
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return editList.products.isEmpty ? 0 : editList.products.count
@@ -94,7 +70,7 @@ extension TableVC: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// GET DATA FROM ADD MENU TABLE
+// NAVIGATION | GET DATA FROM ADD MENU TABLE
 
 extension TableVC: AddMenuTVDelegate {
     
@@ -103,16 +79,64 @@ extension TableVC: AddMenuTVDelegate {
         try? realm.write {
             editList.products.insert(contentsOf: item, at: 0)
         }
-        StorageManager.saveData(editList)
         
         self.tableView.reloadData()
     }
     
     // Нужен что бы обозначить TableVC делегатом AddMenuTable
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard segue.identifier == "AddViewTable", let addMenu = segue.destination as? AddMenuTable else { return }
-        addMenu.delegate = self
+        if segue.identifier == "AddViewTable" {
+            
+            guard let addMenu = segue.destination as? AddMenuTable else { return }
+            addMenu.delegate = self
+            
+        } else if segue.identifier == "EditProduct" {
+            
+            guard let addMenuToEdit = segue.destination as? AddMenuTable else { return }
+            
+            guard let product = productToShare else { return }
+            
+            addMenuToEdit.productToEdit = product
+            addMenuToEdit.indexPathToRecieve = indexPathToShare
+            addMenuToEdit.editingBegan = true
+            
+        }
     }
+    
+    @IBAction func getEditedDataFromAddMenu(_ segue: UIStoryboardSegue) {
+        
+        guard let addMenu = segue.source as? AddMenuTable else { return }
+        
+        guard let indexPath = addMenu.indexPathToRecieve, let editedProduct = addMenu.productToEdit else { return }
+        
+        try? realm.write {
+            
+            editList.products[indexPath.row] = editedProduct
+        }
+        
+        self.tableView.reloadData()
+        
+        addMenu.editingBegan = false
+    }
+    
+    // SIDE BUTTONS
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let delete = deleteRowAction(at: indexPath)
+    
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let editAction = editProduct(at: indexPath)
+        
+        return UISwipeActionsConfiguration(actions: [editAction])
+    }
+    
 }
 
 // CHECKMARK ON TABLE VIEW CELL
@@ -133,8 +157,8 @@ extension TableVC: TableCellDelegate {
             }
             
             
-            UIView.transition(with: tableView, duration: 0.2, options: .transitionCrossDissolve) {
-                self.tableView.moveRow(at: indexPath, to: indexPathLast)
+            UIView.transition(with: tableView, duration: 0.2, options: .transitionCrossDissolve) { [weak self] in
+                self?.tableView.moveRow(at: indexPath, to: indexPathLast)
             }
             
             try? realm.write {

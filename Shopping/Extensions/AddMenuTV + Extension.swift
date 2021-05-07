@@ -14,10 +14,23 @@ extension AddMenuTable {
         addBackgroundGradient(withRadius: viewRadius)
         setupTextFields()
         
-        let firstAdd = UIColor(named: "GreenColorTo")!.cgColor
-        let secondAdd = UIColor(named: "GreenColorFrom")!.cgColor
-        addButton(button: doneButton, withColors: [firstAdd, secondAdd], radius: buttonRadius)
-        addButton(button: addButton, withColors: [firstAdd, secondAdd], radius: buttonRadius)
+        let first = UIColor(named: "GreenColorTo")!.cgColor
+        let second = UIColor(named: "GreenColorFrom")!.cgColor
+        addButton(button: doneButton, withColors: [first, second], radius: buttonRadius)
+        addButton(button: addButton, withColors: [first, second], radius: buttonRadius)
+        
+    }
+    
+    func setupDesignForEditingState() {
+        
+        let firstRight = UIColor(named: "GreenColorTo")!.cgColor
+        let secondRignt = UIColor(named: "GreenColorFrom")!.cgColor
+        
+        let firstLeft = UIColor(named: "RedColorTo")!.cgColor
+        let secondLeft = UIColor(named: "RedColorFrom")!.cgColor
+        
+        addButton(button: doneButton, withColors: [firstLeft, secondLeft], radius: buttonRadius)
+        addButton(button: addButton, withColors: [firstRight, secondRignt], radius: buttonRadius)
         
     }
     

@@ -19,16 +19,18 @@ class CollectionVC: UIViewController {
     let edgeSpacing: CGFloat = 32.0
     var widthPerItem: CGFloat = 0.0
     
+    // Передача на tableView
+    var indexPathToTableVC: IndexPath?
+    
     // Логика ячеки
     var shouldUnhilight: Bool = true
     
+    // Первоначальное создание базы данных
+    var isActivatedAlready = UserDefaults.standard.bool(forKey: "isActivatedAlready")
     
-    // Основной массив
-    
-    var topLevel: Results<TopLevelModel>!
-    
-    var mainList = [MainList]()
-    
+    // Модели
+    var topLevelModel: Results<TopLevelItem>!
+    var mainList = List<MainList>()
     var listItem: MainList?
     
     override func viewDidLoad() {
@@ -36,37 +38,114 @@ class CollectionVC: UIViewController {
         
         registerCells()
         
+        // Дизайн
         addBackgroundGradient()
         setupNavigationBarDesign()
-        setupGesturesOnCollection()
+        setupGestureOnCollectionCell()
         
-        // Переход на другое View
+        // Переход на TableVC
         setupTapGestureOnCollectionCell()
         
-        topLevel
         
-        mainList = realm.objects(MainList.self)
+        topLevelModel = realm.objects(TopLevelItem.self)
         
-        collectionView.reloadData()
+        // При первом запуске приложения создаем объект типа TopLevel в котором имеется массив MainList
+        if isActivatedAlready {
+            guard let item = topLevelModel.first else { return }
+            mainList = item.mainList
+        } else {
+            firstInit()
+        }
     }
+    
+    // Сигвей на AddMenuCollection
     
     @IBAction func addButtonAction(_ sender: UIButton) {
-        print("")
     }
     
-    @IBAction func getDataFromAddMenu(segue: UIStoryboardSegue) {
-        
-        guard let addMenu = segue.source as? AddMenuCollection else { return }
-        
-        addMenu.saveData()
-        self.collectionView.reloadData()
-
-    }
+    // BASE INIT
     
     private func registerCells() {
         collectionView.register(UINib.init(nibName: "CollectionCell", bundle: nil), forCellWithReuseIdentifier: "CollectionCell")
     }
     
+    func firstInit() {
+        UserDefaults.standard.setValue(true, forKey: "isActivatedAlreadyFinal")
+        
+        let topItem = TopLevelItem()
+        StorageManager.saveData(topItem)
+        mainList = topItem.mainList
+    }
+    
+    
+    // NAVIGATION IN->OUT
+    
+    @objc func handleTapWith(gestureRecognizer: UITapGestureRecognizer) {
+        
+        let pozition = gestureRecognizer.location(in: collectionView)
+        
+        if let indexPath = collectionView?.indexPathForItem(at: pozition) {
+            
+            let cell = collectionView.cellForItem(at: indexPath)!
+            
+            self.listItem = mainList[indexPath.row]
+            self.indexPathToTableVC = indexPath
+            performSegue(withIdentifier: "ShowTableView", sender: nil)
+            
+            // Возвращает стандартный дизайн ячейки с задержкой
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
+                self.addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
+            }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "ShowTableView" {
+            guard let tableVC = segue.destination as? TableVC else { return }
+            
+            tableVC.editList = self.listItem
+            tableVC.indexPathToReceive = self.indexPathToTableVC
+            
+        } else if segue.identifier == "EditCollectionCell" {
+            guard let addMenu = segue.destination as? AddMenuCollection else { return }
+            
+            addMenu.mainListEditing = listItem
+            addMenu.indexPathToRecieveAddMenu = indexPathToTableVC
+            addMenu.editingBegan = true
+        }
+    }
+    
+    // UNWIND SEGUES
+    
+    @IBAction func getDataFromAddMenu(segue: UIStoryboardSegue) {
+        
+        guard let addMenu = segue.source as? AddMenuCollection else { return }
+        
+        guard let mainListItem = addMenu.mainListToShare else { return }
+        
+        try? realm.write {
+            mainList.append(mainListItem)
+        }
+        
+        self.collectionView.reloadData()
+
+    }
+    
+    @IBAction func getEditedDataFromAddMenu(_ segue: UIStoryboardSegue) {
+        
+        guard let addMenu = segue.source as? AddMenuCollection else { return }
+        
+        guard let indexPath = addMenu.indexPathToRecieveAddMenu, let editedItem = addMenu.mainListEditing else { return }
+        
+        try? realm.write {
+            self.mainList[indexPath.row] = editedItem
+        }
+        
+        self.collectionView.reloadData()
+        
+        addMenu.editingBegan = false
+    }
 }
 
 // DELEGATE / DATASOURCE
@@ -95,9 +174,12 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         return cell
     }
-    
+}
+
 // GESTURES LOGIC
-    
+
+extension CollectionVC: UIGestureRecognizerDelegate {
+
     func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) {
             
@@ -115,10 +197,6 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
     }
-}
-
-
-extension CollectionVC: UIGestureRecognizerDelegate {
     
     @objc func handleLongPress(gestureRecognizer: UILongPressGestureRecognizer) {
         
@@ -135,52 +213,11 @@ extension CollectionVC: UIGestureRecognizerDelegate {
 
         if let indexPath = collectionView?.indexPathForItem(at: pozition) {
 
-            createAlert(with: "Дополнительная информация", message: nil, style: .actionSheet, indexPath: indexPath)
-
-            print("Long press at item: \(indexPath.row)")
-
+            createAlert(with: "Дополнительные действия", message: nil, style: .actionSheet, indexPath: indexPath)
         }
-
-        if gestureRecognizer.state == .ended, let indexPath = collectionView?.indexPathForItem(at: pozition) {
-
-            
-            
-            print("Закончил выаолнение на ячейке \(indexPath.row)")
-
-        }
-    }
-    
-    
-    // NAVIGATION
-    
-    @objc func handleTapWith(gestureRecognizer: UITapGestureRecognizer) {
-        
-        let pozition = gestureRecognizer.location(in: collectionView)
-        
-        if let indexPath = collectionView?.indexPathForItem(at: pozition) {
-            
-            let cell = collectionView.cellForItem(at: indexPath)!
-            
-            
-            self.listItem = mainList[indexPath.row]
-            //self.indexPathToShare = indexPath
-            performSegue(withIdentifier: "ShowTableView", sender: nil)
-            
-            // Применяет дизайн к карточке с задержкой, после перехода на Table VC
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500)) {
-                self.addCellDesign(cell: cell, withColorName: "CollectionCard0", isPressed: false, indexPath: indexPath)
-            }
-            
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        guard segue.identifier == "ShowTableView", let tableVC = segue.destination as? TableVC else { return }
-        
-        tableVC.editList = listItem
     }
 }
+
 
 // CHECKMARK ON CARD
 
@@ -191,30 +228,33 @@ extension CollectionVC: CollectionCellDelegate {
         self.isActiveCollCellButton(for: cell, isActive: card.isFavourite)
         
         let indexPathLast = IndexPath(item: mainList.count - 1, section: indexPath.section)
+        let indexPathFirst = IndexPath(item: 0, section: indexPath.section)
          
         if card.isFavourite {
-            
-            UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) { [weak self] in
+
+                self.collectionView.deleteItems(at: [indexPath])
+                try? realm.write {
+                    self.mainList.remove(at: indexPath.row)
+                }
                 
                 try? realm.write {
-                    self?.collectionView.moveItem(at: indexPath, to: [0,0])
+                    self.mainList.insert(card, at: indexPathFirst.row)
                 }
-                //self.mainList.sorted(byKeyPath: "isFavourite", ascending: true)
-            }
-        
-        } else {
+                self.collectionView.insertItems(at: [indexPathFirst])
             
-            UIView.transition(with: collectionView, duration: 0.2, options: .transitionCrossDissolve) {
+        } else {
+                
+                self.collectionView.deleteItems(at: [indexPath])
                 try? realm.write {
-                    self.collectionView.moveItem(at: indexPath, to: indexPathLast)
+                    self.mainList.remove(at: indexPath.row)
                 }
-            }
+                
+                try? realm.write {
+                    self.mainList.append(card)
+                }
+                self.collectionView.insertItems(at: [indexPathLast])
+            
         }
-        //self.collectionView.reloadData()
+        self.collectionView.reloadData()
     }
-    
-//    override func setEditing(_ editing: Bool, animated: Bool) {
-//        super.setEditing(editing, animated: animated)
-//        collectionView.setEditing(editing, animated: animated)
-//    }
 }

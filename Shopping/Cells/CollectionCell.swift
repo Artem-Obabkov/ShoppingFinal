@@ -35,12 +35,23 @@ class CollectionCell: UICollectionViewCell {
         }
     }
     @IBAction func buttonAction(_ sender: UIButton) {
-        if var card = card, let indexPath = indexPath {
+        if let card = card, let indexPath = indexPath {
+            
             
             try? realm.write {
                 card.isFavourite.toggle()
             }
             
+            if card.isFavourite {
+                UIView.animate(withDuration: 0.15) {
+                    self.alpha = 0
+                    print(card.isFavourite)
+                }
+            } else {
+                UIView.animate(withDuration: 0.15) {
+                    self.alpha = 1
+                }
+            }
             self.delegate?.cardAction(cell: self, card: card, indexPath: indexPath)
         }
     }
