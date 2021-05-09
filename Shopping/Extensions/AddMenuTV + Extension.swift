@@ -23,6 +23,9 @@ extension AddMenuTable {
     
     func setupDesignForEditingState() {
         
+        addBackgroundGradient(withRadius: viewRadius)
+        setupTextFields()
+        
         let firstRight = UIColor(named: "GreenColorTo")!.cgColor
         let secondRignt = UIColor(named: "GreenColorFrom")!.cgColor
         
