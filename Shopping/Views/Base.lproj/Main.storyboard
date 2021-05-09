@@ -62,7 +62,7 @@
                     <connections>
                         <outlet property="collectionView" destination="Mhb-4W-riZ" id="KzE-OT-C7M"/>
                         <segue destination="9gt-mn-oM2" kind="show" identifier="ShowTableView" id="dSq-SR-9te"/>
-                        <segue destination="XKd-Ym-vdZ" kind="modal" identifier="EditCollectionCell" id="GtM-mR-uYc"/>
+                        <segue destination="XKd-Ym-vdZ" kind="presentation" identifier="EditCollectionCell" id="GtM-mR-uYc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -91,9 +91,9 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hello maoamoama" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="deS-0E-pn0">
-                                                    <rect key="frame" x="56" y="19" width="282" height="18"/>
+                                                    <rect key="frame" x="56" y="19" width="276" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="20" id="qHI-Wj-gSy"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="282" id="qHI-Wj-gSy"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="20"/>
                                                     <color key="textColor" name="TextColorMain"/>
@@ -116,10 +116,10 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y9u-qz-Wks">
-                                                    <rect key="frame" x="368" y="19" width="30" height="18"/>
+                                                    <rect key="frame" x="362" y="19" width="36" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="bSl-hY-gt8"/>
                                                         <constraint firstAttribute="height" constant="18" id="byA-jN-Tqp"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="36" id="qMT-3b-0R5"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="18"/>
                                                     <color key="textColor" name="TextColorMain"/>
@@ -182,7 +182,7 @@
                     <navigationItem key="navigationItem" title="Products" largeTitleDisplayMode="never" id="OXc-nH-xnb"/>
                     <connections>
                         <outlet property="tableView" destination="KvW-Xi-bMx" id="eE9-0i-Zm4"/>
-                        <segue destination="cBl-jO-fgy" kind="modal" identifier="EditProduct" id="r5D-X3-mAF"/>
+                        <segue destination="cBl-jO-fgy" kind="presentation" identifier="EditProduct" id="r5D-X3-mAF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNx-ud-pby" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -206,7 +206,7 @@
                                         <color key="tintColor" name="BGGradientTo"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="L9q-Gd-Qw8"/>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="ui4-AS-Ep7"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="236" id="ui4-AS-Ep7"/>
                                         </constraints>
                                         <color key="textColor" name="BGGradientFrom"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Light" family="Apple SD Gothic Neo" pointSize="16"/>
@@ -259,7 +259,7 @@
                                 <color key="backgroundColor" name="CardBGGradientTo"/>
                                 <constraints>
                                     <constraint firstItem="ikp-iF-y3G" firstAttribute="top" secondItem="Ka4-Hr-f54" secondAttribute="bottom" constant="22" id="6Yx-Em-O7q"/>
-                                    <constraint firstAttribute="trailing" secondItem="Ka4-Hr-f54" secondAttribute="trailing" constant="32" id="A2Y-Ka-qpr"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ka4-Hr-f54" secondAttribute="trailing" constant="32" id="A2Y-Ka-qpr"/>
                                     <constraint firstItem="rXu-aW-c8H" firstAttribute="top" secondItem="VtQ-uS-NJF" secondAttribute="top" constant="18" id="AF1-Rm-77r"/>
                                     <constraint firstItem="Ka4-Hr-f54" firstAttribute="leading" secondItem="VtQ-uS-NJF" secondAttribute="leading" constant="32" id="EXW-vR-Axa"/>
                                     <constraint firstItem="Ka4-Hr-f54" firstAttribute="top" secondItem="rXu-aW-c8H" secondAttribute="bottom" constant="20" id="FJ5-iT-Fqr"/>
@@ -315,7 +315,7 @@
                                         <color key="backgroundColor" name="TextWhite"/>
                                         <color key="tintColor" name="BGGradientTo"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="2Xv-Hk-D1M"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="236" id="2Xv-Hk-D1M"/>
                                             <constraint firstAttribute="height" constant="32" id="nND-Xu-KR4"/>
                                         </constraints>
                                         <color key="textColor" name="BGGradientFrom"/>
@@ -340,7 +340,7 @@
                                         <color key="backgroundColor" name="TextWhite"/>
                                         <color key="tintColor" name="BGGradientTo"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="Vbc-hM-bfW"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="236" id="Vbc-hM-bfW"/>
                                             <constraint firstAttribute="height" constant="32" id="mOy-P7-S7E"/>
                                         </constraints>
                                         <color key="textColor" name="BGGradientFrom"/>
@@ -395,15 +395,15 @@
                                     <constraint firstAttribute="bottom" secondItem="4aY-qx-Wxl" secondAttribute="bottom" constant="18" id="c3k-wz-bPy"/>
                                     <constraint firstItem="0fl-62-UaH" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="dd9-Af-QMM"/>
                                     <constraint firstAttribute="trailing" secondItem="4aY-qx-Wxl" secondAttribute="trailing" constant="32" id="fOC-L6-SLG"/>
-                                    <constraint firstItem="ZJH-v9-H6a" firstAttribute="leading" relation="lessThanOrEqual" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="h51-g9-fSz"/>
-                                    <constraint firstAttribute="trailing" secondItem="ekd-WT-Sgo" secondAttribute="trailing" constant="32" id="iPl-aa-2LY"/>
+                                    <constraint firstItem="ZJH-v9-H6a" firstAttribute="leading" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="h51-g9-fSz"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ekd-WT-Sgo" secondAttribute="trailing" constant="32" id="iPl-aa-2LY"/>
                                     <constraint firstItem="4aY-qx-Wxl" firstAttribute="width" secondItem="aLJ-HP-7Iy" secondAttribute="width" id="kIL-3a-bca"/>
                                     <constraint firstItem="4aY-qx-Wxl" firstAttribute="top" secondItem="ZJH-v9-H6a" secondAttribute="bottom" constant="16" id="lyY-0C-7Gu"/>
                                     <constraint firstItem="aLJ-HP-7Iy" firstAttribute="leading" secondItem="ZRP-r6-kWA" secondAttribute="leading" constant="32" id="nNR-gl-Evn"/>
                                     <constraint firstItem="ekd-WT-Sgo" firstAttribute="top" secondItem="0fl-62-UaH" secondAttribute="bottom" constant="14" id="nij-A0-oZq"/>
                                     <constraint firstItem="aLJ-HP-7Iy" firstAttribute="top" secondItem="ZJH-v9-H6a" secondAttribute="bottom" constant="16" id="pPi-CL-CJd"/>
                                     <constraint firstAttribute="height" constant="200" id="ufq-Wd-6F6"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZJH-v9-H6a" secondAttribute="trailing" constant="32" id="w3R-uE-w68"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZJH-v9-H6a" secondAttribute="trailing" constant="32" id="w3R-uE-w68"/>
                                 </constraints>
                             </view>
                         </subviews>
