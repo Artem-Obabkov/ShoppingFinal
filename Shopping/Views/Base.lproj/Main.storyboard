@@ -10,12 +10,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--List-->
+        <!--Списки-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="CollectionVC" id="BYZ-38-t0r" customClass="CollectionVC" customModule="Shopping" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" contentMode="left" showsHorizontalScrollIndicator="NO" indicatorStyle="black" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Mhb-4W-riZ">
@@ -58,7 +58,7 @@
                             <constraint firstItem="Mhb-4W-riZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="rmD-uG-fTD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="List" largeTitleDisplayMode="never" id="u2n-kg-VsN"/>
+                    <navigationItem key="navigationItem" title="Списки" largeTitleDisplayMode="never" id="u2n-kg-VsN"/>
                     <connections>
                         <outlet property="collectionView" destination="Mhb-4W-riZ" id="KzE-OT-C7M"/>
                         <segue destination="9gt-mn-oM2" kind="show" identifier="ShowTableView" id="dSq-SR-9te"/>
@@ -74,7 +74,7 @@
             <objects>
                 <viewController modalTransitionStyle="crossDissolve" id="9gt-mn-oM2" customClass="TableVC" customModule="Shopping" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="g4g-Ot-rjD">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KvW-Xi-bMx">

@@ -14,6 +14,8 @@ class AddMenuCollection: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    // DESIGN
+    
     let viewRadius: CGFloat = 25.0
     let buttonRadius: CGFloat = 13.0
     let tfRadius: CGFloat = 12.0
@@ -52,10 +54,11 @@ class AddMenuCollection: UIViewController {
         
     }
     
-    
     @IBAction func cancelAction(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
+    
+    // METHODS TO SHARE DATA WITH TABLEVC
     
     func getDataFromAddMenu() {
         

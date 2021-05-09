@@ -164,7 +164,7 @@ extension CollectionVC: UICollectionViewDelegate, UICollectionViewDataSource {
         
         let card = mainList[indexPath.row]
         
-        isActiveCollCellButton(for: cell, isActive: card.isFavourite)
+        isActiveCollCellButton(for: cell, isActive: card.isFavourite, indexPath: indexPath)
         
         cell.delegate = self
         cell.card = card
@@ -225,7 +225,7 @@ extension CollectionVC: CollectionCellDelegate {
     
     func cardAction(cell: CollectionCell, card: MainList, indexPath: IndexPath) {
         
-        self.isActiveCollCellButton(for: cell, isActive: card.isFavourite)
+        self.isActiveCollCellButton(for: cell, isActive: card.isFavourite, indexPath: indexPath)
         
         let indexPathLast = IndexPath(item: mainList.count - 1, section: indexPath.section)
         let indexPathFirst = IndexPath(item: 0, section: indexPath.section)

@@ -7,12 +7,13 @@
 
 import UIKit
 
+// PROTOCOL TO CHANGE isSelected IN REAL TIME
+
 protocol TableCellDelegate {
     func productAction(cell: TableCell, product: Product, indexPath: IndexPath)
 }
 
 class TableCell: UITableViewCell {
-    
     
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
@@ -20,7 +21,8 @@ class TableCell: UITableViewCell {
     
     var product: Product?
     var indexPath: IndexPath?
-    // Передача данных с помощью делегирования.
+    
+    // PASS DATA BY USING DELEGATE
     var delegate: TableCellDelegate?
     
     override func awakeFromNib() {
@@ -30,7 +32,6 @@ class TableCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     
     @IBAction func buttonAction(_ sender: UIButton) {
@@ -43,6 +44,4 @@ class TableCell: UITableViewCell {
             self.delegate?.productAction(cell: self, product: product, indexPath: indexPath)
         }
     }
-    
-
 }

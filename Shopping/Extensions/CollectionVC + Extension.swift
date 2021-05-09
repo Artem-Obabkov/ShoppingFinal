@@ -186,19 +186,25 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         cell.contentView.layer.borderWidth = borderWidth
     }
     
-    func isActiveCollCellButton(for cell: CollectionCell, isActive: Bool) {
+    func isActiveCollCellButton(for cell: CollectionCell, isActive: Bool, indexPath: IndexPath) {
         
+        let borderWidth: CGFloat = 1
+        var isEven: Bool = false
         
+        if indexPath.row % 2 == 0 {
+            isEven = true
+        }
         
         if isActive {
+            
             
             let color = UIColor(named: "GreenColorFrom")!
             let configuration = UIImage.SymbolConfiguration(pointSize: 27, weight: .regular, scale: .large)
             let image = UIImage(systemName: "star.circle.fill", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
             
-            //cell.button.backgroundColor = UIColor(named: "TextWhite")!
-            //cell.button.mask?.backgroundColor = UIColor(named: "TextWhite")!
             cell.button.setImage(image, for: .normal)
+            setBordersFor(cell: cell, borderWidth: borderWidth, colorName: "GreenColorFrom")
+            
             
         } else {
             
@@ -207,6 +213,12 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
             let image = UIImage(systemName: "circle", withConfiguration: configuration)?.withTintColor(color, renderingMode: .alwaysOriginal)
 
             cell.button.setImage(image, for: .normal)
+            if isEven {
+                setBordersFor(cell: cell, borderWidth: borderWidth, colorName: "NavigationBarColor")
+            } else {
+                setBordersFor(cell: cell, borderWidth: borderWidth, colorName: "Border3")
+            }
+            
         }
     }
     

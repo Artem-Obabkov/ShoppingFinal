@@ -8,6 +8,8 @@
 import UIKit
 import RealmSwift
 
+// PROTOCOL TO UPDATE PRODUCTS ON TABLEVC IN REAL TIME
+
 protocol AddMenuTVDelegate {
     func passData(item: List<Product>)
 }
@@ -19,6 +21,8 @@ class AddMenuTable: UIViewController {
     @IBOutlet weak var textFieldAmount: UITextField!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var doneButton: UIButton!
+    
+    // DESIGN
     
     let viewRadius: CGFloat = 25.0
     let buttonRadius: CGFloat = 13.0
@@ -45,7 +49,6 @@ class AddMenuTable: UIViewController {
             doneButton.setTitle("Отмена", for: .normal)
             addButton.setTitle("Готово", for: .normal)
             
-            // Функция которая настраивает дизайн
             DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(99)) { [weak self] in
                 
                 var amount = self?.productToEdit?.amount
@@ -64,6 +67,8 @@ class AddMenuTable: UIViewController {
         self.textFieldAmount.delegate = self
         
     }
+    
+    // WORK WITH TF | LIMIT AMOUNT OF INPUT SYMBOLS
     
     @IBAction func textFieldNameAction(_ sender: UITextField) {
         guard let text: String = textFieldName.text else { return }
@@ -122,6 +127,7 @@ class AddMenuTable: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    // SAVE DATA METHODS 
     
     func saveProduct(with amount: String) {
         
@@ -140,7 +146,6 @@ class AddMenuTable: UIViewController {
             
             productToEdit?.name = textFieldName.text!
             productToEdit?.amount = "x\(textFieldAmount.text!)"
-            
         }
         
         performSegue(withIdentifier: "GetEditedDataFromAddMenu", sender: nil)

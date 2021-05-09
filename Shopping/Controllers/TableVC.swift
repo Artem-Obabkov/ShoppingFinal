@@ -37,6 +37,8 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.navigationController!.popViewController(animated: true)
     }
     
+    // DELETE ITEMS
+    
     @objc func rightButtonAction() {
         try? realm.write {
             self.editList.products.removeAll()
@@ -44,7 +46,7 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableView.reloadData()
     }
     
-    // MAIN TABLEVIEW WORK
+    // MAIN TABLEVIEW DATASOURCE
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return editList.products.isEmpty ? 0 : editList.products.count
@@ -73,6 +75,8 @@ class TableVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 // NAVIGATION | GET DATA FROM ADD MENU TABLE
 
 extension TableVC: AddMenuTVDelegate {
+    
+    // Прием данных с AddMenu в реальном времени
     
     func passData(item: List<Product>) {
         
@@ -103,6 +107,8 @@ extension TableVC: AddMenuTVDelegate {
             
         }
     }
+    
+    // UNWING SEGUE
     
     @IBAction func getEditedDataFromAddMenu(_ segue: UIStoryboardSegue) {
         
@@ -143,7 +149,8 @@ extension TableVC: AddMenuTVDelegate {
 
 extension TableVC: TableCellDelegate {
     
-    // логика при нажатии на checkmark каждой ячейки
+    // Логика при нажатии на checkmark каждой ячейки
+    
     func productAction(cell: TableCell, product: Product, indexPath: IndexPath) {
 
         self.isActiveButton(for: cell, isActive: product.isSelected)
@@ -155,7 +162,6 @@ extension TableVC: TableCellDelegate {
             try? realm.write {
                 editList.products[indexPath.row] = product
             }
-            
             
             UIView.transition(with: tableView, duration: 0.2, options: .transitionCrossDissolve) { [weak self] in
                 self?.tableView.moveRow(at: indexPath, to: indexPathLast)

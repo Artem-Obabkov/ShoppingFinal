@@ -27,7 +27,6 @@
 		8B7FE77226189DBC0014362D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8B7FE77126189DBC0014362D /* Assets.xcassets */; };
 		8B7FE77626189EF00014362D /* CollectionVC + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE77526189EF00014362D /* CollectionVC + Extension.swift */; };
 		8B7FE77926189F7F0014362D /* CollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B7FE77826189F7F0014362D /* CollectionCell.xib */; };
-		8B7FE7812618AF450014362D /* GradientManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE7802618AF450014362D /* GradientManager.swift */; };
 		8B7FE7922618F96B0014362D /* AddMenuCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE7912618F96B0014362D /* AddMenuCollection.swift */; };
 		8B7FE796261A455E0014362D /* TableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE795261A455D0014362D /* TableVC.swift */; };
 		8B7FE79D261A47FF0014362D /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B7FE79C261A47FF0014362D /* TableCell.swift */; };
@@ -60,7 +59,6 @@
 		8B7FE77126189DBC0014362D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Shopping/AdditionalFiles/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		8B7FE77526189EF00014362D /* CollectionVC + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionVC + Extension.swift"; sourceTree = "<group>"; };
 		8B7FE77826189F7F0014362D /* CollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionCell.xib; sourceTree = "<group>"; };
-		8B7FE7802618AF450014362D /* GradientManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientManager.swift; sourceTree = "<group>"; };
 		8B7FE7912618F96B0014362D /* AddMenuCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddMenuCollection.swift; path = Shopping/Controllers/AddMenuCollection.swift; sourceTree = SOURCE_ROOT; };
 		8B7FE795261A455D0014362D /* TableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableVC.swift; sourceTree = "<group>"; };
 		8B7FE79C261A47FF0014362D /* TableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
@@ -154,8 +152,8 @@
 		8B7FE75B26189BDA0014362D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8B7FE76826189D020014362D /* ListModel.swift */,
 				8B22DF9E263AF916003604D9 /* TopLevelItem.swift */,
+				8B7FE76826189D020014362D /* ListModel.swift */,
 				8B22DF7A261E4396003604D9 /* ProductList.swift */,
 			);
 			path = Models;
@@ -186,7 +184,6 @@
 		8B7FE7832618AF490014362D /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				8B7FE7802618AF450014362D /* GradientManager.swift */,
 				8B22DF9B263854F2003604D9 /* RealmManager.swift */,
 			);
 			path = Managers;
@@ -318,7 +315,6 @@
 			files = (
 				8B7FE76426189C990014362D /* CollectionCell.swift in Sources */,
 				8B22DF76261DE444003604D9 /* AddMenuTable.swift in Sources */,
-				8B7FE7812618AF450014362D /* GradientManager.swift in Sources */,
 				8B7FE7922618F96B0014362D /* AddMenuCollection.swift in Sources */,
 				8B7FE796261A455E0014362D /* TableVC.swift in Sources */,
 				8B22DF7B261E4396003604D9 /* ProductList.swift in Sources */,
