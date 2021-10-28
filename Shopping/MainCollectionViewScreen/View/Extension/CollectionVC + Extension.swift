@@ -237,7 +237,13 @@ extension CollectionVC: UICollectionViewDelegateFlowLayout {
         
         let cancelButton = UIAlertAction(title: "Отмена", style: .default) { [weak self] _ in
             self?.addCellDesignWithAnimation(cell: cell, withColorName: "CollectionCard0", animationTime: 0.10, animationType: .curveEaseInOut, isPressed: false, indexPath: indexPath)
+            
             cell.contentView.removeAllShadows()
+
+            
+            guard let card = self?.mainList[indexPath.row] else { return }
+            self?.isActiveCollCellButton(for: cell, isActive: card.isFavourite, indexPath: indexPath)
+            
         }
         
         let deleteButton = UIAlertAction(title: "Удалить", style: .destructive) { [weak self] action in
